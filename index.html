@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Engineer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Theme Initialization Script -->
+    <script>
+        // Check local storage or system preference on load
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        neon: {
+                            blue: '#00f3ff',
+                            purple: '#bc13fe',
+                            green: '#0aff68',
+                        },
+                        dark: {
+                            bg: '#05050a',
+                            card: '#0a0a12',
+                        },
+                        light: {
+                            bg: '#f8fafc',
+                            text: '#0f172a',
+                        }
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            @apply bg-light-bg text-light-text dark:bg-dark-bg dark:text-gray-200 transition-colors duration-300;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            @apply bg-light-bg dark:bg-dark-bg;
+        }
+        ::-webkit-scrollbar-thumb {
+            @apply bg-gray-400 dark:bg-slate-700;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            @apply bg-neon-blue;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .dark .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: none;
+        }
+        .glass-card:hover {
+            border-color: rgba(0, 243, 255, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0, 243, 255, 0.15);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #2563eb, #9333ea);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .dark .gradient-text {
+            background: linear-gradient(to right, #00f3ff, #bc13fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.3));
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* --- PROJECTS MARQUEE --- */
+        .marquee-container {
+            display: flex;
+            width: 100%;
+            overflow: hidden; 
+        }
+
+        .marquee-content {
+            display: flex;
+            flex-shrink: 0;
+            min-width: 100%;
+            gap: 2rem;
+            padding-right: 2rem;
+        }
+
+        .marquee-container:hover .marquee-content {
+            animation-play-state: paused;
+        }
+
+        /* --- MOBILE OVERRIDES --- */
+        @media (max-width: 768px) {
+            .marquee-container {
+                overflow-x: auto;
+                overflow-y: hidden;
+                /* Disable snap and smooth scroll initially so JS can take control */
+                scroll-snap-type: none; 
+                scroll-behavior: auto !important;
+                padding-bottom: 20px;
+            }
+
+            /* Helper class to re-enable snapping when user interacts */
+            .marquee-container.user-interacting {
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth !important;
+            }
+
+            .marquee-content {
+                animation: none !important;
+                width: max-content;
+                min-width: unset;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                transform: none !important;
+            }
+
+            .marquee-content > * {
+                scroll-snap-align: center;
+            }
+        }
+
+        /* Reveal on Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        .menu-open {
+            transform: scaleY(1) !important;
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+
+<body class="bg-light-bg text-gray-800 dark:bg-dark-bg dark:text-gray-200 transition-colors duration-300 antialiased">
+
+    <!-- Canvas Background -->
+    <div id="canvas-container">
+        <canvas id="neural-canvas"></canvas>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 left-0 bg-white/80 dark:bg-dark-bg/80 backdrop-blur-md border-b border-gray-200 dark:border-white/5">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-50">
+            <a href="#" class="text-2xl font-display font-bold tracking-tighter hover:text-neon-blue transition-colors text-gray-900 dark:text-white">KARAN</a>
+
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600 dark:text-gray-400">
+                <a href="#" class="hover:text-neon-blue dark:hover:text-white transition-colors">Home</a>
+                <a href="#projects" class="hover:text-neon-blue dark:hover:text-white transition-colors">Work</a>
+                <a href="#skills" class="hover:text-neon-blue dark:hover:text-white transition-colors">Skills</a>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors focus:outline-none">
+                    <i class="fas fa-sun text-yellow-400 hidden dark:block"></i>
+                    <i class="fas fa-moon text-slate-600 block dark:hidden"></i>
+                </button>
+                <a href="#contact" class="px-5 py-2 rounded-full border border-neon-blue/30 text-neon-blue hover:bg-neon-blue hover:text-black transition-all text-sm font-semibold">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4 md:hidden">
+                <button id="mobile-theme-toggle" class="p-2 text-gray-600 dark:text-gray-300 focus:outline-none">
+                    <i class="fas fa-sun hidden dark:block"></i>
+                    <i class="fas fa-moon block dark:hidden"></i>
+                </button>
+                <button id="mobile-menu-btn" class="text-gray-800 dark:text-white focus:outline-none p-2">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="absolute top-full left-0 w-full bg-white/95 dark:bg-dark-bg/95 backdrop-blur-xl border-b border-gray-200 dark:border-white/10 p-6 flex flex-col space-y-4 shadow-2xl transform origin-top scale-y-0 opacity-0 md:hidden z-40">
+            <a href="#" class="mobile-link text-lg font-display text-gray-800 dark:text-gray-300 hover:text-neon-blue py-2 border-b border-gray-100 dark:border-white/5">Home</a>
+            <a href="#projects" class="mobile-link text-lg font-display text-gray-800 dark:text-gray-300 hover:text-neon-blue py-2 border-b border-gray-100 dark:border-white/5">Work</a>
+            <a href="#skills" class="mobile-link text-lg font-display text-gray-800 dark:text-gray-300 hover:text-neon-blue py-2 border-b border-gray-100 dark:border-white/5">Skills</a>
+            <a href="#contact" class="mobile-link text-neon-blue font-bold py-2">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="min-h-screen flex items-center justify-center relative px-6 pt-20">
+        <div class="max-w-5xl mx-auto text-center z-10">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-tight mb-6 text-gray-900 dark:text-white">
+                Karan <span class="gradient-text">Bhoriya</span>
+            </h1>
+            <p class="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+                Hi, I'm Karan. A Machine Learning Engineer specializing in NLP, Computer Vision, and deploying scalable AI solutions that solve real-world problems.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#projects" class="group relative px-8 py-4 bg-neon-blue text-black font-bold rounded-lg overflow-hidden transition-all hover:scale-105 shadow-lg shadow-neon-blue/20">
+                    <div class="absolute inset-0 bg-white/20 group-hover:translate-x-full transition-transform duration-300"></div>
+                    <span>View Projects</span>
+                </a>
+                <a href="#skills" class="px-8 py-4 rounded-lg border border-gray-300 dark:border-white/10 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition-all hover:border-neon-purple/50">My Skills</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-gray-50/50 dark:bg-black/30 border-y border-gray-200 dark:border-white/5 overflow-hidden transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 reveal">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-display font-bold mb-2 text-gray-900 dark:text-white">My <span class="text-neon-blue">Projects</span></h2>
+                <p class="text-gray-600 dark:text-gray-400 text-sm md:text-base hidden md:block">Hover to pause data stream.</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm md:text-base md:hidden">Auto-scrolling active. Touch/Swipe to control manually.</p>
+            </div>
+        </div>
+
+        <div class="marquee-container reveal" id="marquee-scroll-container">
+            <div class="marquee-content animate-marquee" id="project-track">
+                <!-- JS populated -->
+            </div>
+            <div class="marquee-content animate-marquee" id="project-track-2" aria-hidden="true">
+                <!-- JS populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-display font-bold mb-4 text-gray-900 dark:text-white">Tech <span class="text-neon-purple">Stack</span></h2>
+                <p class="text-gray-600 dark:text-gray-400">The tools I works with.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="skills-grid"></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-neon-blue/10 rounded-full blur-[100px] -z-10"></div>
+        <div class="max-w-4xl mx-auto px-6 text-center reveal">
+            <h2 class="text-4xl md:text-7xl font-display font-bold mb-8 text-gray-900 dark:text-white">Let's Work <span class="gradient-text">Together</span></h2>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto">
+                Have a project that involves massive datasets, Large tects, or prediction? Let's connect and build something intelligent.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-16">
+                <a href="mailto:Karanpr1806@gmail.com" class="flex items-center gap-3 px-8 py-4 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl hover:shadow-lg dark:hover:bg-white/10 hover:border-neon-blue transition-all group w-full md:w-auto justify-center text-gray-800 dark:text-white">
+                    <i class="fas fa-envelope text-neon-blue group-hover:scale-110 transition-transform"></i><span>Gmail</span>
+                </a>
+                <a href="https://www.linkedin.com/in/karan-bhoriya-b5a3382b7/" class="flex items-center gap-3 px-8 py-4 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl hover:shadow-lg dark:hover:bg-white/10 hover:border-neon-purple transition-all group w-full md:w-auto justify-center text-gray-800 dark:text-white">
+                    <i class="fab fa-linkedin text-neon-purple group-hover:scale-110 transition-transform"></i><span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/Karanpr-18" class="flex items-center gap-3 px-8 py-4 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl hover:shadow-lg dark:hover:bg-white/10 hover:border-gray-400 transition-all group w-full md:w-auto justify-center text-gray-800 dark:text-white">
+                    <i class="fab fa-github text-gray-800 dark:text-white group-hover:scale-110 transition-transform"></i><span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 border-t border-gray-200 dark:border-white/5 text-center text-gray-500 dark:text-gray-600 text-sm">
+        <p>&copy; 2025 Karan Portfolio. Built with Neural Networks & Coffee.</p>
+    </footer>
+
+    <script>
+        // --- Theme & Mobile Menu ---
+        const themeBtn = document.getElementById('theme-toggle');
+        const mobileThemeBtn = document.getElementById('mobile-theme-toggle');
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            updateCanvasColors();
+        }
+        themeBtn.addEventListener('click', toggleTheme);
+        mobileThemeBtn.addEventListener('click', toggleTheme);
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('menu-open');
+            const icon = menuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+        
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('menu-open');
+                menuBtn.querySelector('i').className = 'fas fa-bars text-2xl';
+            });
+        });
+
+        // --- Data ---
+        const projects = [
+            { title: "Used car analysis & prediction", desc: "Analysed used cars dataset and predicted", image: "/images/used_car.png", tags: ["HTML","JS","Power-Bi","PostgreSQL"], link: "https://karanpr-18.github.io/Used_car_project/", github: "https://github.com/Karanpr-18/Used_car_project" },
+            { title: "AI News Analyser", desc: "Built an NLP Streamlit app for fake news, hate speech, and news classification.", image: "/images/news_analyser.png", tags: ["Python","Scikit-Learn","Joblib", "Streamlit"], link: "https://ai-news-analyser.streamlit.app/", github: "https://github.com/Karanpr-18/AI-news-analyser" },
+            { title: "CV Job Matcher AI", desc: "Built an NLP-based CV–job matching tool that scores resume relevance against job descriptions.", image: "/images/job_scanner.png", tags: ["Python","Scikit-learn", "Spacy","Streamlit"], link: "https://job-scan-app.streamlit.app/", github: "https://github.com/Karanpr-18/Job_scanner" },
+            { title: "Mail Detection App", desc: "Web application that detects whether a message is spam or not spam.", image: "/images/mail_classifier.png", tags: ["Python","Streamlit", "Joblib","Scikit-Learn"], link: "https://mail-spam-detector-app.streamlit.app/", github: "https://github.com/Karanpr-18/Mail-classifier" },
+            { title: "YT - Downloader", desc: "Built a personal website to download highest quality YT video", image: "images/yt_downloader.png", tags: ["Python", "Streamlit","YT-DLP"], link: "https://personal-yt-downloader.streamlit.app/", github: "https://github.com/Karanpr-18/yt-downloader" }
+        ];
+
+        const skills = [
+            { name: 'Python', icon: 'fa-brands fa-python', color: 'text-yellow-400' },
+            { name: 'Streamlit', icon: 'fa-solid fa-bolt', color: 'text-red-500' },
+            { name: 'PyTorch', icon: 'fa-solid fa-fire', color: 'text-red-500' },
+            { name: 'spaCy', icon: 'fa-solid fa-brain', color: 'text-blue-600' },
+            { name: 'TensorFlow', icon: 'fa-solid fa-network-wired', color: 'text-orange-500' },
+            { name: 'Power BI', icon: 'fa-solid fa-chart-bar', color: 'text-yellow-500' },
+            { name: 'SQL', icon: 'fa-solid fa-database', color: 'text-blue-300' },
+            { name: 'Git', icon: 'fa-brands fa-git-alt', color: 'text-red-400' },
+        ];
+
+        // --- Render Content ---
+        function createProjectCard(project) {
+            return `
+                <div class="block group relative w-[85vw] sm:w-[350px] md:w-[450px] flex-shrink-0 glass-card rounded-xl overflow-hidden snap-center">
+                    <a href="${project.link}" class="absolute inset-0 z-10"></a>
+                    <div class="block h-full">
+                        <div class="h-48 overflow-hidden relative">
+                            <div class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-all z-0"></div>
+                            <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 relative z-20">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex flex-wrap gap-2 max-w-[80%]">
+                                    ${project.tags.map(tag => `<span class="text-[10px] px-2 py-1 rounded bg-blue-50/50 dark:bg-white/5 border border-blue-100 dark:border-white/10 text-blue-600 dark:text-neon-blue">${tag}</span>`).join('')}
+                                </div>
+                                <a href="${project.github}" class="relative z-30 flex items-center justify-center w-10 h-10 rounded-full bg-white/50 dark:bg-white/5 border border-white/20 dark:border-white/10 text-gray-700 dark:text-white hover:bg-neon-purple hover:scale-110 transition-all"><i class="fab fa-github text-3xl"></i></a>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">${project.title}</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-2">${project.desc}</p>
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        const projectHTML = projects.map(p => createProjectCard(p)).join('');
+        const track1 = document.getElementById('project-track');
+        const track2 = document.getElementById('project-track-2');
+        track1.innerHTML = projectHTML;
+        track2.innerHTML = projectHTML;
+
+        document.getElementById('skills-grid').innerHTML = skills.map(s => `
+            <div class="glass-card p-6 rounded-xl flex flex-col items-center justify-center gap-4 hover:bg-white/20 dark:hover:bg-white/5 group transition-all">
+                <i class="${s.icon} text-4xl ${s.color} group-hover:scale-125 transition-transform"></i>
+                <span class="font-medium text-gray-700 dark:text-gray-300">${s.name}</span>
+            </div>
+        `).join('');
+
+        // --- Animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- Mobile Auto-Scroll Engine ---
+        window.addEventListener('load', () => {
+            const container = document.getElementById('marquee-scroll-container');
+            const track1 = document.getElementById('project-track');
+            
+            // Only run if mobile
+            if (window.innerWidth > 768) return;
+
+            let scrollPos = 0;
+            let speed = 1.0; // Pixels per frame
+            let isAutoScrolling = true;
+            let reqId;
+
+            function animateScroll() {
+                if (!isAutoScrolling) return;
+
+                scrollPos += speed;
+                
+                // Infinite Loop: Reset when first track is fully scrolled
+                // We use scrollWidth / 2 because the container has 2 identical tracks
+                if (scrollPos >= track1.offsetWidth) {
+                    scrollPos = 0;
+                }
+                
+                container.scrollLeft = scrollPos;
+                reqId = requestAnimationFrame(animateScroll);
+            }
+
+            // Start Animation
+            // Slight delay to ensure layout is calculated
+            setTimeout(() => {
+                animateScroll();
+            }, 500);
+
+            // Stop on interaction
+            function stopScrolling() {
+                if (!isAutoScrolling) return; // Already stopped
+                isAutoScrolling = false;
+                cancelAnimationFrame(reqId);
+                
+                // Enable snapping and smooth scroll for manual use
+                container.classList.add('user-interacting');
+            }
+
+            container.addEventListener('touchstart', stopScrolling, { passive: true });
+            container.addEventListener('wheel', stopScrolling, { passive: true });
+            container.addEventListener('mousedown', stopScrolling);
+        });
+
+        // --- Neural Canvas ---
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles = [];
+        let particleColor = '#00f3ff';
+        let mouse = { x: null, y: null };
+
+        function updateCanvasColors() {
+            particleColor = document.documentElement.classList.contains('dark') ? '#00f3ff' : '#2563eb';
+        }
+        updateCanvasColors();
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = particleColor;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) particles.push(new Particle());
+        window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            const isDark = document.documentElement.classList.contains('dark');
+            const baseColor = isDark ? '0, 243, 255' : '37, 99, 235';
+
+            particles.forEach((p, i) => {
+                p.update();
+                p.draw();
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = p.x - particles[j].x;
+                    const dy = p.y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(${baseColor}, ${1 - dist / 150})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
