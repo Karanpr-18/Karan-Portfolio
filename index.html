@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+
+<html class="dark scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>KARAN BHORIYA PORTFOLIO</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#66FCF1",
+                        "surface-bright": "#2a2c32",
+                        "primary-fixed": "#45A29E",
+                        "tertiary-fixed": "#00f4fe",
+                        "surface-container-low": "#121318",
+                        "secondary-fixed-dim": "#1f2833",
+                        "on-primary": "#0b0c10",
+                        "on-primary-fixed-variant": "#0b0c10",
+                        "primary-fixed-dim": "#45A29E",
+                        "error-container": "#a70138",
+                        "tertiary-container": "#66FCF1",
+                        "on-secondary-fixed-variant": "#c5c6c7",
+                        "on-background": "#faf8fe",
+                        "on-error": "#490013",
+                        "on-tertiary-container": "#00575b",
+                        "surface-container": "#18191e",
+                        "on-primary-fixed": "#000000",
+                        "primary-dim": "#66FCF1",
+                        "surface-container-lowest": "#000000",
+                        "on-surface": "#faf8fe",
+                        "tertiary-dim": "#45A29E",
+                        "tertiary": "#c5c6c7",
+                        "error": "#ff6e84",
+                        "surface": "#0d0e12",
+                        "background": "#0b0c10",
+                        "on-secondary-container": "#66FCF1",
+                        "surface-dim": "#0d0e12",
+                        "on-tertiary": "#0b0c10",
+                        "surface-container-high": "#1e1f25",
+                        "surface-container-highest": "#24252b",
+                        "secondary": "#45A29E",
+                        "on-secondary-fixed": "#0b0c10",
+                        "inverse-primary": "#1f2833",
+                        "tertiary-fixed-dim": "#45A29E",
+                        "surface-tint": "#66FCF1",
+                        "on-surface-variant": "#abaab0",
+                        "inverse-surface": "#faf8fe",
+                        "on-error-container": "#ffb2b9",
+                        "inverse-on-surface": "#54555a",
+                        "on-tertiary-fixed": "#0b0c10",
+                        "secondary-container": "#1f2833",
+                        "error-dim": "#d73357",
+                        "outline": "#75757a",
+                        "on-primary-container": "#0b0c10",
+                        "secondary-dim": "#45A29E",
+                        "on-secondary": "#0b0c10",
+                        "on-tertiary-fixed-variant": "#45A29E",
+                        "secondary-fixed": "#c5c6c7",
+                        "primary-container": "#1f2833",
+                        "surface-variant": "#24252b",
+                        "outline-variant": "#47484c"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .neural-gradient-bg {
+            background: radial-gradient(circle at 50% 50%, rgba(102, 252, 241, 0.08) 0%, rgba(13, 14, 18, 0) 70%);
+        }
+
+        .liquid-glass {
+            background: rgba(36, 37, 43, 0.08);
+            /* Decreased from 0.15 */
+            backdrop-filter: blur(24px) saturate(180%) brightness(1.2);
+            -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.2);
+            border: 1px solid rgba(102, 252, 241, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card {
+            background: rgba(24, 25, 30, 0.2);
+            /* Decreased from 0.4 */
+            backdrop-filter: blur(12px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(102, 252, 241, 0.05);
+            border: 1px solid rgba(102, 252, 241, 0.3);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.2);
+        }
+
+        .mask-radial {
+            mask-image: radial-gradient(circle, black 40%, transparent 80%);
+        }
+
+        #neural-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        section {
+            position: relative;
+            z-index: 10;
+        }
+
+        .crisp-text {
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Reveal on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Project card image hover */
+        .project-card-img {
+            transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1), filter 0.5s ease;
+        }
+
+        .group:hover .project-card-img {
+            transform: scale(1.08);
+            filter: grayscale(0%);
+        }
+
+        /* ===== Vertical Marquee Styles ===== */
+        .marquee-viewport {
+            position: relative;
+            overflow: hidden;
+            height: 800px;
+        }
+
+        .marquee-viewport::before,
+        .marquee-viewport::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 120px;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .marquee-viewport::before {
+            top: 0;
+            background: linear-gradient(to bottom, #0b0c10 0%, transparent 100%);
+        }
+
+        .marquee-viewport::after {
+            bottom: 0;
+            background: linear-gradient(to top, #0b0c10 0%, transparent 100%);
+        }
+
+        .marquee-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .marquee-col-1,
+        .marquee-col-2 {
+            overflow: hidden;
+            height: 100%;
+            position: relative;
+        }
+
+        .marquee-track {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .marquee-col-1 .marquee-track {
+            animation: scrollUp 28s linear infinite;
+        }
+
+        .marquee-col-2 .marquee-track {
+            animation: scrollUp 34s linear infinite;
+        }
+
+        .marquee-viewport:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollUp {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
+        .project-card {
+            width: 100%;
+            height: 360px;
+            flex-shrink: 0;
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            background: rgba(24, 25, 30, 0.4);
+            backdrop-filter: blur(12px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .project-card:hover {
+            border-color: rgba(102, 252, 241, 0.35);
+            box-shadow: 0 0 40px rgba(102, 252, 241, 0.08);
+        }
+
+        /* Single column mobile */
+        @media (max-width: 768px) {
+            .marquee-viewport {
+                height: 600px;
+            }
+
+            .marquee-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .marquee-col-2 {
+                display: none;
+            }
+
+            .marquee-col-1 .marquee-track {
+                animation-duration: 25s;
+            }
+
+            .project-card {
+                height: 300px;
+            }
+        }
+
+
+        /* Adjust glass elements for light mode */
+        html:not(.dark) .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            /* Decreased from 0.2 */
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        html:not(.dark) .liquid-glass {
+            background: rgba(255, 255, 255, 0.02);
+            /* Decreased from 0.08 */
+            border: 1px solid rgba(102, 252, 241, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        html:not(.dark) .text-glow {
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
+        }
+
+        /* Marquee Masks */
+        html:not(.dark) .marquee-viewport::before {
+            background: linear-gradient(to bottom, #f9fafb, transparent);
+        }
+
+        html:not(.dark) .marquee-viewport::after {
+            background: linear-gradient(to top, #f9fafb, transparent);
+        }
+    </style>
+</head>
+
+<body
+    class="selection:bg-primary selection:text-on-primary bg-gray-50 dark:bg-background text-slate-900 dark:text-on-background transition-colors duration-300">
+    <!-- Global Fixed Ambient Lighting for Glassmorphism Refraction -->
+    <div
+        class="fixed inset-0 z-[-5] overflow-hidden pointer-events-none opacity-0 dark:opacity-20 transition-opacity duration-1000">
+        <div
+            class="absolute top-[-10%] left-[0%] w-[60vw] h-[60vw] bg-primary/30 dark:bg-primary/10 rounded-full blur-[150px] mix-blend-multiply dark:mix-blend-screen">
+        </div>
+        <div
+            class="absolute top-[30%] right-[-10%] w-[50vw] h-[50vw] bg-secondary/30 dark:bg-secondary/10 rounded-full blur-[150px] mix-blend-multiply dark:mix-blend-screen">
+        </div>
+        <div
+            class="absolute bottom-[-20%] left-[20%] w-[70vw] h-[70vw] bg-tertiary-fixed/30 dark:bg-tertiary-fixed/10 rounded-full blur-[200px] mix-blend-multiply dark:mix-blend-screen">
+        </div>
+    </div>
+    <canvas id="neural-canvas"></canvas>
+    <!-- TopAppBar -->
+    <nav
+        class="fixed top-0 w-full z-50 backdrop-blur-xl bg-white/80 dark:bg-black/20 border-b border-black/5 dark:border-white/5">
+        <div class="flex justify-between items-center px-4 md:px-8 py-4 md:py-6 max-w-7xl mx-auto gap-4">
+            <a href="#home"
+                class="text-xl md:text-2xl font-black tracking-tighter text-slate-900 dark:text-primary font-['Space_Grotesk'] uppercase hover:opacity-80 transition-opacity">
+                KARAN
+            </a>
+            <div class="hidden md:flex items-center space-x-6 lg:space-x-10">
+                <a class="nav-link text-slate-400 hover:text-slate-900 dark:text-white border-b-2 border-transparent hover:border-white/30 pb-1 transition-all duration-300 font-['Space_Grotesk'] tracking-tighter uppercase text-xs lg:text-sm font-bold hover:scale-105"
+                    href="#home">HOME</a>
+                <a class="nav-link text-slate-400 hover:text-slate-900 dark:text-white border-b-2 border-transparent hover:border-white/30 pb-1 transition-all duration-300 font-['Space_Grotesk'] tracking-tighter uppercase text-xs lg:text-sm font-bold hover:scale-105"
+                    href="#projects">WORK</a>
+                <a class="nav-link text-slate-400 hover:text-slate-900 dark:text-white border-b-2 border-transparent hover:border-white/30 pb-1 transition-all duration-300 font-['Space_Grotesk'] tracking-tighter uppercase text-xs lg:text-sm font-bold hover:scale-105"
+                    href="#skills">SKILLS</a>
+                <a class="nav-link text-slate-400 hover:text-slate-900 dark:text-white border-b-2 border-transparent hover:border-white/30 pb-1 transition-all duration-300 font-['Space_Grotesk'] tracking-tighter uppercase text-xs lg:text-sm font-bold hover:scale-105"
+                    href="#contact">CONTACT</a>
+            </div>
+            <button id="theme-toggle"
+                class="bg-white shadow-sm dark:shadow-none dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-900 dark:text-white font-label w-8 h-8 md:w-10 md:h-10 flex flex-shrink-0 items-center justify-center rounded-full hover:bg-slate-100 dark:bg-black/10 dark:bg-white/10 transition-colors focus:outline-none">
+                <i class="fas fa-sun hidden light-icon"></i>
+                <i class="fas fa-moon block dark-icon"></i>
+            </button>
+        </div>
+    </nav>
+    <!-- Top Scroll Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 z-[60] bg-transparent">
+        <div id="scroll-progress"
+            class="h-full bg-gradient-to-r from-primary to-secondary w-0 transition-all duration-75 text-transparent">
+        </div>
+    </div>
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+            <div
+                class="relative z-10 text-center px-5 py-24 md:py-32 md:px-16 hero-content liquid-glass rounded-3xl md:rounded-[3rem] mx-auto max-w-6xl w-[90%] md:w-[80%]">
+                <h1
+                    class="font-headline font-black text-[12vw] md:text-[8rem] leading-[0.85] tracking-tighter uppercase text-slate-900 dark:text-white mix-blend-difference">
+                    <span class="block text-glow">KARAN</span>
+                    <span
+                        class="block bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-tertiary-fixed">BHORIYA</span>
+                </h1>
+                <p
+                    class="mt-12 max-w-2xl mx-auto font-body text-lg text-slate-600 dark:text-on-surface-variant leading-relaxed opacity-90 crisp-text">
+                    Machine Learning Engineer specializing in NLP, Deep Learning, and Neural Networks. Building
+                    intelligent systems that solve real-world problems — from fake news detection to stock prediction.
+                </p>
+                <div class="mt-12 flex flex-col md:flex-row items-center justify-center gap-6">
+                    <a href="#projects"
+                        class="px-10 py-4 bg-gradient-to-r from-primary to-secondary rounded-full font-label font-extrabold text-on-primary tracking-widest hover:scale-105 transition-all shadow-[0_0_40px_rgba(102,252,241,0.3)]">
+                        VIEW_PROJECTS
+                    </a>
+                    <a href="#skills"
+                        class="px-10 py-4 bg-transparent border border-slate-300 dark:border-outline-variant/30 rounded-full font-label font-bold text-slate-900 dark:text-white tracking-widest hover:bg-white shadow-sm dark:shadow-none dark:bg-white/5 transition-all backdrop-blur-sm">
+                        MY_SKILLS
+                    </a>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+                <span class="font-label text-[10px] tracking-widest uppercase crisp-text">Scroll to descend</span>
+                <div class="w-px h-16 bg-gradient-to-b from-primary to-transparent"></div>
+            </div>
+        </section>
+
+
+        <!-- Projects Gallery - Vertical Infinite Marquee -->
+        <section id="projects" class="py-32 relative">
+            <div
+                class="max-w-7xl mx-auto px-5 py-12 md:py-16 md:px-12 relative z-10 liquid-glass rounded-3xl md:rounded-[3rem]">
+                <div class="mb-16 text-center reveal">
+                    <h2
+                        class="font-headline text-6xl font-black tracking-tighter text-slate-900 dark:text-white uppercase crisp-text">
+                        SELECTED_PROJECTS</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-primary to-transparent mx-auto mt-6 rounded-full"></div>
+                    <p class="mt-6 text-slate-600 dark:text-on-surface-variant font-body text-sm crisp-text">Hover to
+                        pause the data stream</p>
+                </div>
+
+                <div class="marquee-viewport">
+                    <div class="marquee-grid">
+
+                        <!-- Column 1 -->
+                        <div class="marquee-col-1">
+                            <div class="marquee-track">
+
+                                <!-- Card 1: Used Car Analysis -->
+                                <div
+                                    class="project-card group rounded-2xl overflow-hidden shadow-xl dark:shadow-none border border-slate-200 dark:border-transparent bg-white dark:bg-transparent">
+                                    <img class="absolute inset-0 w-full h-full object-cover project-card-img opacity-80 dark:opacity-50 dark:grayscale"
+                                        alt="Used Car Analysis" src="images/used_car.png" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/70 dark:from-[#0b0c10]/95 dark:via-[#0b0c10]/40 to-transparent">
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6">
+                                        <div class="flex gap-2 mb-3 flex-wrap">
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md text-primary font-label text-[9px] uppercase font-bold border border-primary/30">HTML</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-white shadow-sm dark:shadow-none dark:bg-white/5 backdrop-blur-md text-slate-900 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-black/10 dark:border-white/10">JS</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-white shadow-sm dark:shadow-none dark:bg-white/5 backdrop-blur-md text-slate-900 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-black/10 dark:border-white/10">POWER-BI</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-white shadow-sm dark:shadow-none dark:bg-white/5 backdrop-blur-md text-slate-900 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-black/10 dark:border-white/10">SQL</span>
+                                        </div>
+                                        <h3
+                                            class="font-headline text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase tracking-tighter crisp-text">
+                                            USED_CAR_ANALYSIS</h3>
+                                        <p
+                                            class="font-body text-xs text-slate-600 dark:text-on-surface-variant mb-4 leading-relaxed crisp-text line-clamp-2">
+                                            End-to-end used car price analysis with EDA, SQL-based cleaning, and
+                                            interactive price prediction on GitHub Pages.</p>
+                                        <div class="flex items-center gap-4">
+                                            <a href="https://karanpr-18.github.io/Used_car_project/" target="_blank"
+                                                class="flex items-center gap-2 text-primary font-label font-bold uppercase tracking-widest text-[10px] hover:gap-3 transition-all">VIEW_LIVE
+                                                <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+                                            <a href="https://github.com/Karanpr-18/Used_car_project" target="_blank"
+                                                class="text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:text-white transition-colors"><i
+                                                    class="fab fa-github text-base"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 2: CV Job Matcher -->
+                                <div
+                                    class="project-card group rounded-2xl overflow-hidden shadow-xl dark:shadow-none border border-slate-200 dark:border-transparent bg-white dark:bg-transparent">
+                                    <img class="absolute inset-0 w-full h-full object-cover project-card-img opacity-80 dark:opacity-50 dark:grayscale"
+                                        alt="CV Job Matcher AI" src="images/job_scanner.png" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/70 dark:from-[#0b0c10]/95 dark:via-[#0b0c10]/40 to-transparent">
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6">
+                                        <div class="flex gap-2 mb-3 flex-wrap">
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md text-primary font-label text-[9px] uppercase font-bold border border-primary/30">SPACY</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-white shadow-sm dark:shadow-none dark:bg-white/5 backdrop-blur-md text-slate-900 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-black/10 dark:border-white/10">SCIKIT-LEARN</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-white shadow-sm dark:shadow-none dark:bg-white/5 backdrop-blur-md text-slate-900 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-black/10 dark:border-white/10">STREAMLIT</span>
+                                        </div>
+                                        <h3
+                                            class="font-headline text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase tracking-tighter crisp-text">
+                                            CV_JOB_MATCHER</h3>
+                                        <p
+                                            class="font-body text-xs text-slate-600 dark:text-on-surface-variant mb-4 leading-relaxed crisp-text line-clamp-2">
+                                            NLP-based CV–job matching tool that scores resume relevance against job
+                                            descriptions.</p>
+                                        <div class="flex items-center gap-4">
+                                            <a href="https://job-scan-app.streamlit.app/" target="_blank"
+                                                class="flex items-center gap-2 text-primary font-label font-bold uppercase tracking-widest text-[10px] hover:gap-3 transition-all">LIVE_DEMO
+                                                <span class="material-symbols-outlined text-sm">open_in_new</span></a>
+                                            <a href="https://github.com/Karanpr-18/Job_matcher" target="_blank"
+                                                class="text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:text-white transition-colors"><i
+                                                    class="fab fa-github text-base"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 3: TalentAI HR Management -->
+                                <div
+                                    class="project-card group rounded-2xl overflow-hidden shadow-xl dark:shadow-none border border-slate-200 dark:border-transparent bg-white dark:bg-transparent">
+                                    <img class="absolute inset-0 w-full h-full object-cover project-card-img opacity-80 dark:opacity-50 dark:grayscale"
+                                        alt="TalentAI HR Management System" src="images/talent_ai.png" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/70 dark:from-[#0b0c10]/95 dark:via-[#0b0c10]/40 to-transparent">
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6">
+                                        <div class="flex gap-2 mb-3 flex-wrap">
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md text-primary font-label text-[9px] uppercase font-bold border border-primary/30">PYTHON</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-white shadow-sm dark:shadow-none dark:bg-white/5 backdrop-blur-md text-slate-900 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-black/10 dark:border-white/10">FLASK</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-white shadow-sm dark:shadow-none dark:bg-white/5 backdrop-blur-md text-slate-900 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-black/10 dark:border-white/10">GEMINI
+                                                API</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-white shadow-sm dark:shadow-none dark:bg-white/5 backdrop-blur-md text-slate-900 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-black/10 dark:border-white/10">PANDAS</span>
+                                        </div>
+                                        <h3
+                                            class="font-headline text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase tracking-tighter crisp-text">
+                                            TALENT_AI</h3>
+                                        <p
+                                            class="font-body text-xs text-slate-600 dark:text-on-surface-variant mb-4 leading-relaxed crisp-text line-clamp-2">
+                                            AI-powered hiring platform with Gemini-based resume parsing, intelligent
+                                            candidate scoring, and automated recruitment workflows.</p>
+                                        <div class="flex items-center gap-4">
+                                            <a href="https://hr-management-app-w6xc.onrender.com/" target="_blank"
+                                                class="flex items-center gap-2 text-primary font-label font-bold uppercase tracking-widest text-[10px] hover:gap-3 transition-all">LIVE_DEMO
+                                                <span class="material-symbols-outlined text-sm">open_in_new</span></a>
+                                            <a href="https://github.com/Karanpr-18/HR-management-app" target="_blank"
+                                                class="text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:text-white transition-colors"><i
+                                                    class="fab fa-github text-base"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="project-card group rounded-2xl overflow-hidden shadow-xl dark:shadow-none border border-slate-200 dark:border-transparent bg-white dark:bg-transparent">
+                                    <img class="absolute inset-0 w-full h-full object-cover project-card-img opacity-80 dark:opacity-50 dark:grayscale"
+                                        alt="YouTube Downloader" src="images/yt_downloader.png" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/70 dark:from-[#0b0c10]/95 dark:via-[#0b0c10]/40 to-transparent">
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6">
+                                        <div class="flex gap-2 mb-3 flex-wrap">
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md text-primary font-label text-[9px] uppercase font-bold border border-primary/30">PYTHON</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-white shadow-sm dark:shadow-none dark:bg-white/5 backdrop-blur-md text-slate-900 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-black/10 dark:border-white/10">STREAMLIT</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-white shadow-sm dark:shadow-none dark:bg-white/5 backdrop-blur-md text-slate-900 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-black/10 dark:border-white/10">PYTUBE</span>
+                                        </div>
+                                        <h3
+                                            class="font-headline text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase tracking-tighter crisp-text">
+                                            YT_DOWNLOADER</h3>
+                                        <p
+                                            class="font-body text-xs text-slate-600 dark:text-on-surface-variant mb-4 leading-relaxed crisp-text line-clamp-2">
+                                            A simple and fast YouTube video downloader built with Python and Streamlit,
+                                            supporting multiple resolutions.</p>
+                                        <div class="flex items-center gap-4">
+                                            <a href="https://github.com/Karanpr-18/yt-downloader" target="_blank"
+                                                class="flex items-center gap-2 text-primary font-label font-bold uppercase tracking-widest text-[10px] hover:gap-3 transition-all">VIEW_GITHUB
+                                                <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- DUPLICATES for seamless loop -->
+                                <div
+                                    class="project-card group rounded-2xl overflow-hidden shadow-xl dark:shadow-none border border-slate-200 dark:border-transparent bg-white dark:bg-transparent">
+                                    <img class="absolute inset-0 w-full h-full object-cover project-card-img opacity-80 dark:opacity-50 dark:grayscale"
+                                        alt="Used Car Analysis" src="images/used_car.png" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/70 dark:from-[#0b0c10]/95 dark:via-[#0b0c10]/40 to-transparent">
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6">
+                                        <div class="flex gap-2 mb-3 flex-wrap">
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-teal-100/70 dark:bg-primary/20 backdrop-blur-md text-teal-800 dark:text-primary font-label text-[9px] uppercase font-bold border border-teal-300 dark:border-primary/30">HTML</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">JS</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">POWER-BI</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">SQL</span>
+                                        </div>
+                                        <h3
+                                            class="font-headline text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase tracking-tighter crisp-text">
+                                            USED_CAR_ANALYSIS</h3>
+                                        <p
+                                            class="font-body text-xs text-slate-600 dark:text-on-surface-variant mb-4 leading-relaxed crisp-text line-clamp-2">
+                                            End-to-end used car price analysis with EDA, SQL-based cleaning, and
+                                            interactive price prediction on GitHub Pages.</p>
+                                        <div class="flex items-center gap-4">
+                                            <a href="https://karanpr-18.github.io/Used_car_project/" target="_blank"
+                                                class="flex items-center gap-2 text-primary font-label font-bold uppercase tracking-widest text-[10px] hover:gap-3 transition-all">VIEW_LIVE
+                                                <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+                                            <a href="https://github.com/Karanpr-18/Used_car_project" target="_blank"
+                                                class="text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:text-white transition-colors"><i
+                                                    class="fab fa-github text-base"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="project-card group rounded-2xl overflow-hidden shadow-xl dark:shadow-none border border-slate-200 dark:border-transparent bg-white dark:bg-transparent">
+                                    <img class="absolute inset-0 w-full h-full object-cover project-card-img opacity-80 dark:opacity-50 dark:grayscale"
+                                        alt="CV Job Matcher AI" src="images/job_scanner.png" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/70 dark:from-[#0b0c10]/95 dark:via-[#0b0c10]/40 to-transparent">
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6">
+                                        <div class="flex gap-2 mb-3 flex-wrap">
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-teal-100/70 dark:bg-primary/20 backdrop-blur-md text-teal-800 dark:text-primary font-label text-[9px] uppercase font-bold border border-teal-300 dark:border-primary/30">SPACY</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">SCIKIT-LEARN</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">STREAMLIT</span>
+                                        </div>
+                                        <h3
+                                            class="font-headline text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase tracking-tighter crisp-text">
+                                            CV_JOB_MATCHER</h3>
+                                        <p
+                                            class="font-body text-xs text-slate-600 dark:text-on-surface-variant mb-4 leading-relaxed crisp-text line-clamp-2">
+                                            NLP-based CV–job matching tool that scores resume relevance against job
+                                            descriptions.</p>
+                                        <div class="flex items-center gap-4">
+                                            <a href="https://job-scan-app.streamlit.app/" target="_blank"
+                                                class="flex items-center gap-2 text-primary font-label font-bold uppercase tracking-widest text-[10px] hover:gap-3 transition-all">LIVE_DEMO
+                                                <span class="material-symbols-outlined text-sm">open_in_new</span></a>
+                                            <a href="https://github.com/Karanpr-18/Job_matcher" target="_blank"
+                                                class="text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:text-white transition-colors"><i
+                                                    class="fab fa-github text-base"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="project-card group rounded-2xl overflow-hidden shadow-xl dark:shadow-none border border-slate-200 dark:border-transparent bg-white dark:bg-transparent">
+                                    <img class="absolute inset-0 w-full h-full object-cover project-card-img opacity-80 dark:opacity-50 dark:grayscale"
+                                        alt="TalentAI HR Management System" src="images/talent_ai.png" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/70 dark:from-[#0b0c10]/95 dark:via-[#0b0c10]/40 to-transparent">
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6">
+                                        <div class="flex gap-2 mb-3 flex-wrap">
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-teal-100/70 dark:bg-primary/20 backdrop-blur-md text-teal-800 dark:text-primary font-label text-[9px] uppercase font-bold border border-teal-300 dark:border-primary/30">PYTHON</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">FLASK</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">GEMINI
+                                                API</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">PANDAS</span>
+                                        </div>
+                                        <h3
+                                            class="font-headline text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase tracking-tighter crisp-text">
+                                            TALENT_AI</h3>
+                                        <p
+                                            class="font-body text-xs text-slate-600 dark:text-on-surface-variant mb-4 leading-relaxed crisp-text line-clamp-2">
+                                            AI-powered hiring platform with Gemini-based resume parsing, intelligent
+                                            candidate scoring, and automated recruitment workflows.</p>
+                                        <div class="flex items-center gap-4">
+                                            <a href="https://hr-management-app-w6xc.onrender.com/" target="_blank"
+                                                class="flex items-center gap-2 text-primary font-label font-bold uppercase tracking-widest text-[10px] hover:gap-3 transition-all">LIVE_DEMO
+                                                <span class="material-symbols-outlined text-sm">open_in_new</span></a>
+                                            <a href="https://github.com/Karanpr-18/HR-management-app" target="_blank"
+                                                class="text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:text-white transition-colors"><i
+                                                    class="fab fa-github text-base"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="marquee-col-2">
+                            <div class="marquee-track" style="margin-top: -170px;">
+
+                                <!-- Card A: AI News Analyser -->
+                                <div
+                                    class="project-card group rounded-2xl overflow-hidden shadow-xl dark:shadow-none border border-slate-200 dark:border-transparent bg-white dark:bg-transparent">
+                                    <img class="absolute inset-0 w-full h-full object-cover project-card-img opacity-80 dark:opacity-50 dark:grayscale"
+                                        alt="AI News Analyser" src="images/news_analyser.png" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/70 dark:from-[#0b0c10]/95 dark:via-[#0b0c10]/40 to-transparent">
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6">
+                                        <div class="flex gap-2 mb-3 flex-wrap">
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-indigo-100/70 dark:bg-tertiary/20 backdrop-blur-md text-indigo-800 dark:text-tertiary font-label text-[9px] uppercase font-bold border border-indigo-300 dark:border-tertiary/30">NLP</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">SCIKIT-LEARN</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">STREAMLIT</span>
+                                        </div>
+                                        <h3
+                                            class="font-headline text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase tracking-tighter crisp-text">
+                                            AI_NEWS_ANALYSER</h3>
+                                        <p
+                                            class="font-body text-xs text-slate-600 dark:text-on-surface-variant mb-4 leading-relaxed crisp-text line-clamp-2">
+                                            Fake News (89%), Hate Speech (80%), News Category (89%) — three NLP models
+                                            in one unified Streamlit app.</p>
+                                        <div class="flex items-center gap-4">
+                                            <a href="https://ai-news-analyser.streamlit.app/" target="_blank"
+                                                class="flex items-center gap-2 text-primary font-label font-bold uppercase tracking-widest text-[10px] hover:gap-3 transition-all">LIVE_DEMO
+                                                <span class="material-symbols-outlined text-sm">open_in_new</span></a>
+                                            <a href="https://github.com/Karanpr-18/AI-news-analyser" target="_blank"
+                                                class="text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:text-white transition-colors"><i
+                                                    class="fab fa-github text-base"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card B: Mail Classifier -->
+                                <div
+                                    class="project-card group rounded-2xl overflow-hidden shadow-xl dark:shadow-none border border-slate-200 dark:border-transparent bg-white dark:bg-transparent">
+                                    <img class="absolute inset-0 w-full h-full object-cover project-card-img opacity-80 dark:opacity-50 dark:grayscale"
+                                        alt="Mail Spam Detection" src="images/mail_classifier.png" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/70 dark:from-[#0b0c10]/95 dark:via-[#0b0c10]/40 to-transparent">
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6">
+                                        <div class="flex gap-2 mb-3 flex-wrap">
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-teal-100/70 dark:bg-primary/20 backdrop-blur-md text-teal-800 dark:text-primary font-label text-[9px] uppercase font-bold border border-teal-300 dark:border-primary/30">NAIVE
+                                                BAYES</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">JOBLIB</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">STREAMLIT</span>
+                                        </div>
+                                        <h3
+                                            class="font-headline text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase tracking-tighter crisp-text">
+                                            MAIL_CLASSIFIER</h3>
+                                        <p
+                                            class="font-body text-xs text-slate-600 dark:text-on-surface-variant mb-4 leading-relaxed crisp-text line-clamp-2">
+                                            Production-ready spam detection web app with instant spam/ham predictions
+                                            using ML classifiers.</p>
+                                        <div class="flex items-center gap-4">
+                                            <a href="https://mail-spam-detector-app.streamlit.app/" target="_blank"
+                                                class="flex items-center gap-2 text-primary font-label font-bold uppercase tracking-widest text-[10px] hover:gap-3 transition-all">LIVE_DEMO
+                                                <span class="material-symbols-outlined text-sm">open_in_new</span></a>
+                                            <a href="https://github.com/Karanpr-18/Mail-classifier" target="_blank"
+                                                class="text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:text-white transition-colors"><i
+                                                    class="fab fa-github text-base"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- DUPLICATES for seamless loop -->
+                                <div
+                                    class="project-card group rounded-2xl overflow-hidden shadow-xl dark:shadow-none border border-slate-200 dark:border-transparent bg-white dark:bg-transparent">
+                                    <img class="absolute inset-0 w-full h-full object-cover project-card-img opacity-80 dark:opacity-50 dark:grayscale"
+                                        alt="AI News Analyser" src="images/news_analyser.png" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/70 dark:from-[#0b0c10]/95 dark:via-[#0b0c10]/40 to-transparent">
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6">
+                                        <div class="flex gap-2 mb-3 flex-wrap">
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-indigo-100/70 dark:bg-tertiary/20 backdrop-blur-md text-indigo-800 dark:text-tertiary font-label text-[9px] uppercase font-bold border border-indigo-300 dark:border-tertiary/30">NLP</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">SCIKIT-LEARN</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">STREAMLIT</span>
+                                        </div>
+                                        <h3
+                                            class="font-headline text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase tracking-tighter crisp-text">
+                                            AI_NEWS_ANALYSER</h3>
+                                        <p
+                                            class="font-body text-xs text-slate-600 dark:text-on-surface-variant mb-4 leading-relaxed crisp-text line-clamp-2">
+                                            Fake News (89%), Hate Speech (80%), News Category (89%) — three NLP models
+                                            in one unified Streamlit app.</p>
+                                        <div class="flex items-center gap-4">
+                                            <a href="https://ai-news-analyser.streamlit.app/" target="_blank"
+                                                class="flex items-center gap-2 text-primary font-label font-bold uppercase tracking-widest text-[10px] hover:gap-3 transition-all">LIVE_DEMO
+                                                <span class="material-symbols-outlined text-sm">open_in_new</span></a>
+                                            <a href="https://github.com/Karanpr-18/AI-news-analyser" target="_blank"
+                                                class="text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:text-white transition-colors"><i
+                                                    class="fab fa-github text-base"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="project-card group rounded-2xl overflow-hidden shadow-xl dark:shadow-none border border-slate-200 dark:border-transparent bg-white dark:bg-transparent">
+                                    <img class="absolute inset-0 w-full h-full object-cover project-card-img opacity-80 dark:opacity-50 dark:grayscale"
+                                        alt="Mail Spam Detection" src="images/mail_classifier.png" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/70 dark:from-[#0b0c10]/95 dark:via-[#0b0c10]/40 to-transparent">
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6">
+                                        <div class="flex gap-2 mb-3 flex-wrap">
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-teal-100/70 dark:bg-primary/20 backdrop-blur-md text-teal-800 dark:text-primary font-label text-[9px] uppercase font-bold border border-teal-300 dark:border-primary/30">NAIVE
+                                                BAYES</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">JOBLIB</span>
+                                            <span
+                                                class="px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-white/60 font-label text-[9px] uppercase font-bold border border-slate-400 dark:border-white/10">STREAMLIT</span>
+                                        </div>
+                                        <h3
+                                            class="font-headline text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase tracking-tighter crisp-text">
+                                            MAIL_CLASSIFIER</h3>
+                                        <p
+                                            class="font-body text-xs text-slate-600 dark:text-on-surface-variant mb-4 leading-relaxed crisp-text line-clamp-2">
+                                            Production-ready spam detection web app with instant spam/ham predictions
+                                            using ML classifiers.</p>
+                                        <div class="flex items-center gap-4">
+                                            <a href="https://mail-spam-detector-app.streamlit.app/" target="_blank"
+                                                class="flex items-center gap-2 text-primary font-label font-bold uppercase tracking-widest text-[10px] hover:gap-3 transition-all">LIVE_DEMO
+                                                <span class="material-symbols-outlined text-sm">open_in_new</span></a>
+                                            <a href="https://github.com/Karanpr-18/Mail-classifier" target="_blank"
+                                                class="text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:text-white transition-colors"><i
+                                                    class="fab fa-github text-base"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Tech Stack Section -->
+        <section id="skills" class="py-32 relative overflow-hidden">
+            <div
+                class="max-w-7xl mx-auto px-5 py-12 md:py-16 md:px-12 relative z-10 liquid-glass rounded-3xl md:rounded-[3rem]">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 reveal">
+                    <div>
+                        <h2
+                            class="font-headline text-5xl font-bold tracking-tighter text-slate-900 dark:text-white uppercase crisp-text">
+                            TECH_STACK</h2>
+                        <p class="text-primary font-label text-sm tracking-[0.2em] mt-2 crisp-text">TOOLS I WORK WITH
+                        </p>
+                    </div>
+                    <p class="max-w-md text-slate-600 dark:text-on-surface-variant font-body crisp-text">Leveraging
+                        machine learning, deep learning frameworks, and data engineering tools to build end-to-end
+                        intelligent applications.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <!-- Tech Node 1 -->
+                    <div class="glass-card group relative p-8 rounded-xl overflow-hidden reveal">
+                        <div
+                            class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full group-hover:bg-primary/20 transition-all duration-700 blur-2xl">
+                        </div>
+                        <i class="fa-brands fa-python text-4xl text-yellow-400 mb-6 block"></i>
+                        <h3 class="font-headline text-xl font-bold text-slate-900 dark:text-white mb-2 crisp-text">
+                            PYTHON</h3>
+                        <p class="text-xs text-slate-600 dark:text-on-surface-variant font-body">Core orchestration,
+                            data pipelines, and ML model development.</p>
+                    </div>
+                    <!-- Tech Node 2 -->
+                    <div class="glass-card group relative p-8 rounded-xl overflow-hidden reveal">
+                        <div
+                            class="absolute -right-4 -top-4 w-24 h-24 bg-tertiary/5 rounded-full group-hover:bg-tertiary/20 transition-all duration-700 blur-2xl">
+                        </div>
+                        <i class="fa-solid fa-fire text-4xl text-red-500 mb-6 block"></i>
+                        <h3 class="font-headline text-xl font-bold text-slate-900 dark:text-white mb-2 crisp-text">
+                            PYTORCH</h3>
+                        <p class="text-xs text-slate-600 dark:text-on-surface-variant font-body">Deep learning research,
+                            neural network training, and tensor optimization.</p>
+                    </div>
+                    <!-- Tech Node 3 -->
+                    <div class="glass-card group relative p-8 rounded-xl overflow-hidden reveal">
+                        <div
+                            class="absolute -right-4 -top-4 w-24 h-24 bg-secondary/5 rounded-full group-hover:bg-secondary/20 transition-all duration-700 blur-2xl">
+                        </div>
+                        <i class="fa-solid fa-bolt text-4xl text-red-400 mb-6 block"></i>
+                        <h3 class="font-headline text-xl font-bold text-slate-900 dark:text-white mb-2 crisp-text">
+                            STREAMLIT</h3>
+                        <p class="text-xs text-slate-600 dark:text-on-surface-variant font-body">Rapid ML app deployment
+                            with interactive web interfaces.</p>
+                    </div>
+                    <!-- Tech Node 4 -->
+                    <div class="glass-card group relative p-8 rounded-xl overflow-hidden reveal">
+                        <div
+                            class="absolute -right-4 -top-4 w-24 h-24 bg-primary-fixed/5 rounded-full group-hover:bg-primary-fixed/20 transition-all duration-700 blur-2xl">
+                        </div>
+                        <i class="fa-solid fa-brain text-4xl text-blue-400 mb-6 block"></i>
+                        <h3 class="font-headline text-xl font-bold text-slate-900 dark:text-white mb-2 crisp-text">SPACY
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-on-surface-variant font-body">Advanced NLP pipelines
+                            for text processing and entity recognition.</p>
+                    </div>
+                    <!-- Tech Node 5 -->
+                    <div class="glass-card group relative p-8 rounded-xl overflow-hidden reveal">
+                        <div
+                            class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full group-hover:bg-primary/20 transition-all duration-700 blur-2xl">
+                        </div>
+                        <i class="fa-solid fa-network-wired text-4xl text-orange-500 mb-6 block"></i>
+                        <h3 class="font-headline text-xl font-bold text-slate-900 dark:text-white mb-2 crisp-text">
+                            TENSORFLOW</h3>
+                        <p class="text-xs text-slate-600 dark:text-on-surface-variant font-body">Production-grade ML
+                            models and neural network deployment.</p>
+                    </div>
+                    <!-- Tech Node 6 -->
+                    <div class="glass-card group relative p-8 rounded-xl overflow-hidden reveal">
+                        <div
+                            class="absolute -right-4 -top-4 w-24 h-24 bg-tertiary/5 rounded-full group-hover:bg-tertiary/20 transition-all duration-700 blur-2xl">
+                        </div>
+                        <i class="fa-solid fa-chart-bar text-4xl text-yellow-500 mb-6 block"></i>
+                        <h3 class="font-headline text-xl font-bold text-slate-900 dark:text-white mb-2 crisp-text">
+                            POWER_BI</h3>
+                        <p class="text-xs text-slate-600 dark:text-on-surface-variant font-body">Business intelligence
+                            dashboards and data visualization.</p>
+                    </div>
+                    <!-- Tech Node 7 -->
+                    <div class="glass-card group relative p-8 rounded-xl overflow-hidden reveal">
+                        <div
+                            class="absolute -right-4 -top-4 w-24 h-24 bg-secondary/5 rounded-full group-hover:bg-secondary/20 transition-all duration-700 blur-2xl">
+                        </div>
+                        <i class="fa-solid fa-database text-4xl text-blue-300 mb-6 block"></i>
+                        <h3 class="font-headline text-xl font-bold text-slate-900 dark:text-white mb-2 crisp-text">SQL
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-on-surface-variant font-body">Data querying, schema
+                            design, and database management.</p>
+                    </div>
+                    <!-- Tech Node 8 -->
+                    <div class="glass-card group relative p-8 rounded-xl overflow-hidden reveal">
+                        <div
+                            class="absolute -right-4 -top-4 w-24 h-24 bg-primary-fixed/5 rounded-full group-hover:bg-primary-fixed/20 transition-all duration-700 blur-2xl">
+                        </div>
+                        <i class="fa-brands fa-git-alt text-4xl text-red-400 mb-6 block"></i>
+                        <h3 class="font-headline text-xl font-bold text-slate-900 dark:text-white mb-2 crisp-text">GIT
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-on-surface-variant font-body">Version control,
+                            collaboration, and CI/CD workflows.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Minimal Contact Section -->
+        <section id="contact" class="py-32 relative overflow-hidden">
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] -z-10">
+            </div>
+            <div
+                class="max-w-5xl mx-auto px-5 py-16 md:py-24 relative z-10 text-center reveal liquid-glass rounded-3xl md:rounded-[3rem]">
+                <h2
+                    class="font-headline text-5xl md:text-7xl font-black mb-8 text-slate-900 dark:text-white uppercase tracking-tighter crisp-text">
+                    LET'S WORK <span
+                        class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">TOGETHER</span>
+                </h2>
+                <p
+                    class="text-lg text-slate-600 dark:text-on-surface-variant mb-12 max-w-2xl mx-auto font-body crisp-text">
+                    Have a project that involves massive datasets, machine learning, or predictive analytics? Let's
+                    connect and build something intelligent.
+                </p>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-16">
+                    <a href="mailto:Karanpr1806@gmail.com"
+                        class="group flex items-center justify-center gap-6 px-12 py-6 rounded-2xl bg-white shadow-sm dark:shadow-none dark:bg-white/5 border border-black/10 dark:border-white/10 hover:border-primary hover:bg-slate-100 dark:bg-black/10 dark:bg-white/10 transition-all w-full md:w-auto glass-card">
+                        <i
+                            class="fas fa-envelope text-primary text-2xl md:text-3xl group-hover:scale-110 transition-transform"></i>
+                        <span
+                            class="font-label text-sm md:text-base font-bold uppercase tracking-[0.2em] text-slate-900 dark:text-white">GMAIL</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/karan-bhoriya-b5a3382b7/" target="_blank"
+                        class="group flex items-center justify-center gap-6 px-12 py-6 rounded-2xl bg-white shadow-sm dark:shadow-none dark:bg-white/5 border border-black/10 dark:border-white/10 hover:border-secondary hover:bg-slate-100 dark:bg-black/10 dark:bg-white/10 transition-all w-full md:w-auto glass-card">
+                        <i
+                            class="fab fa-linkedin text-secondary text-2xl md:text-3xl group-hover:scale-110 transition-transform"></i>
+                        <span
+                            class="font-label text-sm md:text-base font-bold uppercase tracking-[0.2em] text-slate-900 dark:text-white">LINKEDIN</span>
+                    </a>
+                    <a href="https://github.com/Karanpr-18" target="_blank"
+                        class="group flex items-center justify-center gap-6 px-12 py-6 rounded-2xl bg-white shadow-sm dark:shadow-none dark:bg-white/5 border border-black/10 dark:border-white/10 hover:border-black/5 dark:border-white/50 hover:bg-slate-100 dark:bg-black/10 dark:bg-white/10 transition-all w-full md:w-auto glass-card">
+                        <i
+                            class="fab fa-github text-slate-900 dark:text-white text-2xl md:text-3xl group-hover:scale-110 transition-transform"></i>
+                        <span
+                            class="font-label text-sm md:text-base font-bold uppercase tracking-[0.2em] text-slate-900 dark:text-white">GITHUB</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <!-- Footer Removed -->
+    <script>
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const mouse = { x: null, y: null };
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.density = (Math.random() * 30) + 5;
+                this.color = '#66FCF1';
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            update() {
+                this.baseX += this.vx;
+                this.baseY += this.vy;
+
+                if (this.baseX > canvas.width) this.baseX = 0;
+                if (this.baseX < 0) this.baseX = canvas.width;
+                if (this.baseY > canvas.height) this.baseY = 0;
+                if (this.baseY < 0) this.baseY = canvas.height;
+
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                let forceDirectionX = dx / distance;
+                let forceDirectionY = dy / distance;
+                let maxDistance = 200;
+                let force = (maxDistance - distance) / maxDistance;
+                let directionX = forceDirectionX * force * this.density;
+                let directionY = forceDirectionY * force * this.density;
+
+                if (distance < maxDistance) {
+                    this.x -= directionX;
+                    this.y -= directionY;
+                } else {
+                    if (this.x !== this.baseX) {
+                        let dx_return = this.x - this.baseX;
+                        this.x -= dx_return / 20;
+                    }
+                    if (this.y !== this.baseY) {
+                        let dy_return = this.y - this.baseY;
+                        this.y -= dy_return / 20;
+                    }
+                }
+            }
+        }
+
+        function init() {
+            resize();
+            particles = [];
+            const numberOfParticles = (canvas.width * canvas.height) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    let dx = particles[a].x - particles[b].x;
+                    let dy = particles[a].y - particles[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        opacityValue = 1 - (distance / 150);
+                        const isLight = !document.documentElement.classList.contains('dark');
+                        ctx.strokeStyle = isLight ? `rgba(148, 163, 184, ${opacityValue * 0.2})` : `rgba(102, 252, 241, ${opacityValue * 0.2})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].draw();
+                particles[i].update();
+            }
+            connect();
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        // Reveal on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- Theme Toggle Logic ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const sunIcon = themeToggleBtn.querySelector('.light-icon');
+        const moonIcon = themeToggleBtn.querySelector('.dark-icon');
+
+        function updateThemeUI() {
+            if (!document.documentElement.classList.contains('dark')) {
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+                sunIcon.classList.add('block');
+                moonIcon.classList.remove('block');
+            } else {
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.remove('block');
+                moonIcon.classList.add('block');
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            updateThemeUI();
+        });
+
+        // --- Scrolling Animations (Progress Bar + Hero Parallax) ---
+        const scrollProgress = document.getElementById('scroll-progress');
+        const heroContent = document.querySelector('.hero-content');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+            // Update Scroll Progress Bar
+            const scrolled = (scrollTop / scrollHeight) * 100;
+            if (scrollProgress) scrollProgress.style.width = scrolled + '%';
+
+            // Hero Parallax Effect
+            if (heroContent && scrollTop < window.innerHeight) {
+                const yPos = scrollTop * 0.4;
+                const fading = 1 - (scrollTop / (window.innerHeight * 0.6));
+                heroContent.style.transform = `translateY(${yPos}px)`;
+                heroContent.style.opacity = fading > 0 ? fading : 0;
+            }
+        });
+
+        // --- Active Nav Link Spy ---
+        const activeSections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-primary', 'border-primary');
+                        // Ensure inactive styles are applied
+                        link.classList.add('text-slate-400', 'border-transparent');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            // Make active
+                            link.classList.add('text-primary', 'border-primary');
+                            link.classList.remove('text-slate-400', 'border-transparent');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.2, rootMargin: '-10% 0px -40% 0px' });
+
+        activeSections.forEach(section => {
+            navObserver.observe(section);
+        });
+    </script>
+</body>
+
+</html>
