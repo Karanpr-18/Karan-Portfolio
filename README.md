@@ -1,6 +1,5 @@
-# 🚀 Machine Learning Engineer Portfolio
+# 🚀 Karan Bhoriya Portfolio
 
-![Portfolio Preview](./screen.png)
 
 * **Link** - https://karanpr-18.github.io/Karan-Portfolio/
 
