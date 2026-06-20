@@ -88,6 +88,14 @@ const TECH_INFO: Record<string, { color: string; logoUrl?: string; svg?: React.R
     color: "#000000",
     logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg"
   },
+  "ONNX": {
+    color: "#005C99",
+    logoUrl: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/onnx.svg"
+  },
+  "PYDANTIC": {
+    color: "#E1145C",
+    logoUrl: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/pydantic.svg"
+  },
   "TAILWIND CSS": {
     color: "#06B6D4",
     logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
@@ -131,6 +139,10 @@ const TECH_INFO: Record<string, { color: string; logoUrl?: string; svg?: React.R
   "MISTRAL": {
     color: "#FD5A24",
     logoUrl: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/mistralai.svg"
+  },
+  "CRAWL4AI": {
+    color: "#50ffff",
+    logoUrl: "https://media.licdn.com/dms/image/v2/D560BAQFyGRIuF2bqeQ/company-logo_200_200/B56ZfTe2EtHoAI-/0/1751599768258/crawl4ai_logo?e=2147483647&v=beta&t=skhRct8O4VaW42IwD7eC9Eqc9Pbavt7n6q7QgaJTQE8"
   },
   "AGENTSCOPE": {
     color: "#8B5CF6",
@@ -177,14 +189,14 @@ const TECH_STACK = [
     name: "Agentic & LLM Frameworks",
     desc: "Building sophisticated multi-agent orchestrations, advanced RAG architectures, and complex language model applications.",
     image: "/images/techhubai.png",
-    tags: ["AgentScope", "CrewAI", "LangGraph", "Advanced RAG", "Gemini", "Groq", "Mistral"]
+    tags: ["AgentScope", "CrewAI", "LangGraph", "Advanced RAG", "Gemini", "Groq", "Mistral", "Crawl4AI"]
   },
   {
     num: "04",
     name: "Libraries & Frameworks",
     desc: "Core packages and utility frameworks for building modern web frontends, API servers, and interactive dashboards.",
     image: "/images/job_scanner.png",
-    tags: ["Streamlit", "React", "Next.js", "FastAPI", "Flask", "Tailwind CSS"]
+    tags: ["Streamlit", "React", "Next.js", "FastAPI", "Flask", "Tailwind CSS", "ONNX", "Pydantic"]
   },
   {
     num: "05",
@@ -199,10 +211,10 @@ export const ServicesSection: React.FC = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number>(0);
 
   return (
-    <section id="services" className="bg-[#FFFFFF] text-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 relative z-20">
+    <section id="services" className="bg-[#0C0C0C] text-[#D7E2EA] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 relative z-20">
       <div className="w-full max-w-7xl mx-auto">
         <FadeIn delay={0} y={40} className="w-full text-center">
-          <h2 className="font-black uppercase text-center mb-16 sm:mb-20 md:mb-24 text-[#0C0C0C]" style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}>
+          <h2 className="font-black uppercase text-center mb-16 sm:mb-20 md:mb-24 text-[#D7E2EA]" style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}>
             Tech Stack
           </h2>
         </FadeIn>
@@ -211,7 +223,7 @@ export const ServicesSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Left Column: Tech Stack list */}
-          <div className="lg:col-span-7 border-t border-[rgba(12,12,12,0.15)] w-full">
+          <div className="lg:col-span-7 border-t border-[rgba(215,226,234,0.15)] w-full">
             {TECH_STACK.map((tech, i) => {
               const isActive = hoveredIdx === i;
 
@@ -219,11 +231,11 @@ export const ServicesSection: React.FC = () => {
                 <div
                   key={tech.num}
                   onMouseEnter={() => setHoveredIdx(i)}
-                  className="group py-8 border-b border-[rgba(12,12,12,0.15)] transition-colors duration-300 cursor-pointer text-left relative overflow-hidden"
+                  className="group py-8 border-b border-[rgba(215,226,234,0.15)] transition-colors duration-300 cursor-pointer text-left relative overflow-hidden"
                 >
                   {/* Subtle active background glow */}
                   <motion.div
-                    className="absolute inset-0 bg-[#0C0C0C]/[0.02] -z-10"
+                    className="absolute inset-0 bg-white/[0.02] -z-10"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: isActive ? 1 : 0 }}
                     transition={{ duration: 0.2 }}
@@ -234,7 +246,7 @@ export const ServicesSection: React.FC = () => {
                     <motion.div
                       animate={{
                         scale: isActive ? 1.05 : 1,
-                        color: isActive ? '#7621B0' : '#0C0C0C',
+                        color: isActive ? '#B600A8' : '#D7E2EA',
                       }}
                       transition={{ duration: 0.3 }}
                       className="font-black leading-none select-none min-w-[50px] sm:min-w-[80px]"
@@ -248,7 +260,7 @@ export const ServicesSection: React.FC = () => {
                       <motion.h3
                         animate={{
                           x: isActive ? 8 : 0,
-                          color: isActive ? '#0C0C0C' : 'rgba(12, 12, 12, 0.8)',
+                          color: isActive ? '#D7E2EA' : 'rgba(215, 226, 234, 0.6)',
                         }}
                         transition={{ duration: 0.3 }}
                         className="font-medium uppercase leading-tight"
@@ -258,7 +270,7 @@ export const ServicesSection: React.FC = () => {
                       </motion.h3>
                       
                       <p
-                        className="font-light leading-relaxed text-[#0C0C0C] opacity-60 mt-2 max-w-xl transition-all duration-300"
+                        className="font-light leading-relaxed text-[#D7E2EA] opacity-60 mt-2 max-w-xl transition-all duration-300"
                         style={{ fontSize: 'clamp(0.85rem, 1.6vw, 1.15rem)' }}
                       >
                         {tech.desc}
@@ -272,13 +284,13 @@ export const ServicesSection: React.FC = () => {
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="lg:hidden w-full overflow-hidden mt-4 grid grid-cols-3 sm:grid-cols-4 gap-2.5 p-3.5 bg-black/[0.02] border border-black/[0.06] rounded-[24px]"
+                            className="lg:hidden w-full overflow-hidden mt-4 grid grid-cols-3 sm:grid-cols-4 gap-2.5 p-3.5 bg-white/[0.02] border border-white/10 rounded-[24px]"
                           >
                             {tech.tags.map((tag) => {
                               const info = TECH_INFO[tag.toUpperCase()] || {
-                                color: "#7621B0",
+                                color: "#B600A8",
                                 svg: (
-                                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white border border-[#7621B0] bg-[#7621B0]/10">
+                                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white border border-[#B600A8] bg-[#B600A8]/10">
                                     {tag.substring(0, 2).toUpperCase()}
                                   </div>
                                 )
@@ -286,20 +298,20 @@ export const ServicesSection: React.FC = () => {
                               return (
                                 <div
                                   key={tag}
-                                  className="flex flex-col items-center justify-between p-2 rounded-2xl bg-white border border-black/5 shadow-sm hover:border-[#7621B0]/30 transition-all duration-300 min-h-[104px] [&_svg]:w-14 [&_svg]:h-14"
+                                  className="flex flex-col items-center justify-between p-2 rounded-2xl bg-[#141414] border border-white/10 shadow-sm hover:border-[#B600A8]/30 transition-all duration-300 min-h-[104px] [&_svg]:w-14 [&_svg]:h-14"
                                 >
                                   <div className="flex-grow flex items-center justify-center h-14 w-14">
                                     {info.logoUrl ? (
                                       <img
                                         src={info.logoUrl}
-                                        className="w-14 h-14 object-contain"
+                                        className={`w-14 h-14 object-contain ${info.color === '#000000' ? 'invert brightness-200' : ''}`}
                                         alt={tag}
                                       />
                                     ) : (
                                       info.svg
                                     )}
                                   </div>
-                                  <span className="text-[9px] font-black text-center uppercase tracking-wider text-black/90 font-mono mt-1">
+                                  <span className="text-[9px] font-black text-center uppercase tracking-wider text-[#D7E2EA]/90 font-mono mt-1">
                                     {tag}
                                   </span>
                                 </div>
@@ -317,13 +329,13 @@ export const ServicesSection: React.FC = () => {
 
           {/* Right Column: Dynamic interactive preview card (Desktop only) */}
           <div className="hidden lg:block lg:col-span-5 sticky top-32 h-[580px]">
-            <div className="w-full h-full rounded-[40px] border border-[rgba(12,12,12,0.15)] bg-gradient-to-tr from-white to-[#0C0C0C]/5 p-6 flex flex-col justify-between overflow-hidden shadow-lg relative">
+            <div className="w-full h-full rounded-[40px] border border-white/10 bg-gradient-to-tr from-[#0C0C0C] to-[#141414]/50 p-6 flex flex-col justify-between overflow-hidden shadow-lg relative">
               
               {/* Viewport scanline grid backing */}
               <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
 
               {/* Grid of Mini Cards instead of Image */}
-              <div className="w-full h-[400px] rounded-[24px] border border-[rgba(12,12,12,0.1)] overflow-hidden relative shadow-inner p-4 bg-black/[0.01]">
+              <div className="w-full h-[400px] rounded-[24px] border border-white/5 overflow-hidden relative shadow-inner p-4 bg-white/[0.01]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={hoveredIdx}
@@ -335,9 +347,9 @@ export const ServicesSection: React.FC = () => {
                   >
                     {TECH_STACK[hoveredIdx].tags.map((tag) => {
                       const info = TECH_INFO[tag.toUpperCase()] || {
-                        color: "#7621B0",
+                        color: "#B600A8",
                         svg: (
-                          <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white border border-[#7621B0] bg-[#7621B0]/10">
+                          <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white border border-[#B600A8] bg-[#B600A8]/10">
                             {tag.substring(0, 2).toUpperCase()}
                           </div>
                         )
@@ -346,21 +358,21 @@ export const ServicesSection: React.FC = () => {
                       return (
                         <motion.div
                           key={tag}
-                          className="flex flex-col items-center justify-between p-2 rounded-2xl bg-white border border-black/[0.06] shadow-sm hover:border-[#7621B0]/40 transition-all duration-300 transform hover:scale-[1.05] hover:shadow-md cursor-pointer h-28 [&_svg]:w-16 [&_svg]:h-16"
+                          className="flex flex-col items-center justify-between p-2 rounded-2xl bg-[#141414] border border-white/10 shadow-sm hover:border-[#B600A8]/40 transition-all duration-300 transform hover:scale-[1.05] hover:shadow-md cursor-pointer h-28 [&_svg]:w-16 [&_svg]:h-16 text-[#D7E2EA]"
                           whileHover={{ y: -2 }}
                         >
                           <div className="flex-grow flex items-center justify-center h-16 w-16">
                             {info.logoUrl ? (
                               <img
                                 src={info.logoUrl}
-                                className="w-16 h-16 object-contain"
+                                className={`w-16 h-16 object-contain ${info.color === '#000000' ? 'invert brightness-200' : ''}`}
                                 alt={tag}
                               />
                             ) : (
                               info.svg
                             )}
                           </div>
-                          <span className="text-[9px] font-black text-center uppercase tracking-wider text-black/90 font-mono mt-1">
+                          <span className="text-[9px] font-black text-center uppercase tracking-wider text-[#D7E2EA]/90 font-mono mt-1">
                             {tag}
                           </span>
                         </motion.div>
@@ -373,13 +385,13 @@ export const ServicesSection: React.FC = () => {
               {/* Detail footer of the preview */}
               <div className="mt-4 flex flex-col items-start text-left gap-2 relative z-10">
                 <div className="flex justify-between items-center w-full">
-                  <span className="text-[10px] font-mono tracking-widest text-[#7621B0] uppercase font-bold">
+                  <span className="text-[10px] font-mono tracking-widest text-[#B600A8] uppercase font-bold">
                     [Stack Category: {TECH_STACK[hoveredIdx].num}]
                   </span>
                   <div className="flex gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#7621B0] animate-pulse" />
-                    <span className="w-2 h-2 rounded-full bg-gray-300" />
-                    <span className="w-2 h-2 rounded-full bg-gray-300" />
+                    <span className="w-2 h-2 rounded-full bg-[#B600A8] animate-pulse" />
+                    <span className="w-2 h-2 rounded-full bg-white/20" />
+                    <span className="w-2 h-2 rounded-full bg-white/20" />
                   </div>
                 </div>
                 <h4 className="text-xl font-bold uppercase tracking-wide">
@@ -387,7 +399,7 @@ export const ServicesSection: React.FC = () => {
                 </h4>
                 <div className="flex flex-wrap gap-1.5 mt-1">
                   {TECH_STACK[hoveredIdx].tags.map((tag) => (
-                    <span key={tag} className="text-[10px] uppercase font-medium tracking-wider px-2.5 py-0.5 rounded-full border border-black/10 bg-black/5 text-black">
+                    <span key={tag} className="text-[10px] uppercase font-medium tracking-wider px-2.5 py-0.5 rounded-full border border-white/10 bg-[#D7E2EA]/5 text-[#D7E2EA]/95">
                       {tag}
                     </span>
                   ))}

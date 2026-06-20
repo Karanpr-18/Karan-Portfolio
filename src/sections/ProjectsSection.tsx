@@ -9,10 +9,11 @@ const PROJECTS = [
     category: "Autonomous Multi-Agent Swarm & Graph RAG",
     name: "Career-Orbit",
     desc: "A fully autonomous multi-agent swarm and Graph RAG job hunter command center. Autonomously crawls job portals, evaluates fit via semantic scoring, auto-fills application forms with target email fallbacks, and tracks applications using a local Graph database with conversational RAG query capabilities.",
-    tags: ["Next.js", "Python", "SurrealDB", "Playwright", "Docker"],
+    tags: ["Next.js", "Python", "SurrealDB", "Playwright", "Docker", "Crawl4AI", "AgentScope"],
     image: "/images/career_orbit.png",
     github: "https://github.com/Karanpr-18/Career-Orbit",
-    live: ""
+    live: "https://career-orbit-karan.vercel.app/",
+    isOpenSource: true
   },
   {
     num: "02",
@@ -22,37 +23,41 @@ const PROJECTS = [
     tags: ["Next.js", "TypeScript", "FastAPI", "AgentScope", "Crawl4AI"],
     image: "/images/techhubai.png",
     github: "https://github.com/Karanpr-18/TechHubAI",
-    live: ""
+    live: "https://tech-hub-ai-karan.vercel.app/",
+    isOpenSource: true
   },
   {
     num: "03",
     category: "AI HR Platform",
     name: "Talent AI",
     desc: "AI-powered hiring platform with Gemini-based resume parsing, intelligent candidate scoring, and automated recruitment workflows.",
-    tags: ["Python", "Flask", "Gemini API", "Pandas"],
+    tags: ["Python", "Flask", "Gemini API", "Pandas", "Pydantic"],
     image: "/images/talent_ai.png",
     github: "https://github.com/Karanpr-18/HR-management-app",
-    live: "https://hr-management-app-w6xc.onrender.com/"
+    live: "https://hr-management-app-w6xc.onrender.com/",
+    isOpenSource: false
   },
   {
     num: "04",
     category: "NLP Tool",
     name: "CV Job Matcher",
     desc: "NLP-based CV–job matching tool that scores resume relevance against job descriptions for fast recruitment filtering.",
-    tags: ["SpaCy", "Scikit-Learn", "Streamlit"],
+    tags: ["SpaCy", "Scikit-Learn", "Streamlit", "NLP"],
     image: "/images/job_scanner.png",
     github: "https://github.com/Karanpr-18/Job_matcher",
-    live: "https://job-scan-app.streamlit.app/"
+    live: "https://job-scan-app.streamlit.app/",
+    isOpenSource: false
   },
   {
     num: "05",
     category: "Data Analytics & Pricing Model",
     name: "Used Car Project",
     desc: "End-to-end used car price analysis with EDA, SQL-based cleaning, and interactive client-side price prediction on GitHub Pages.",
-    tags: ["HTML/CSS/JS", "Power-BI", "SQL (SQLite)"],
+    tags: ["HTML/CSS/JS", "Power-BI", "PostgreSQL"],
     image: "/images/used_car.png",
     github: "https://github.com/Karanpr-18/Used_car_project",
-    live: "https://karanpr-18.github.io/Used_car_project/"
+    live: "https://karanpr-18.github.io/Used_car_project/",
+    isOpenSource: false
   },
   {
     num: "06",
@@ -62,7 +67,8 @@ const PROJECTS = [
     tags: ["NLP", "Scikit-Learn", "Streamlit", "Python"],
     image: "/images/news_analyser.png",
     github: "https://github.com/Karanpr-18/AI-news-analyser",
-    live: "https://ai-news-analyser.streamlit.app/"
+    live: "https://ai-news-analyser.streamlit.app/",
+    isOpenSource: false
   }
 ];
 
@@ -78,9 +84,10 @@ interface ProjectCardProps {
   image: string;
   github: string;
   live: string;
+  isOpenSource?: boolean;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ index, total, progress, num, category, name, desc, tags, image, github, live }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ index, total, progress, num, category, name, desc, tags, image, github, live, isOpenSource }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   // Spotlight state
@@ -137,8 +144,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ index, total, progress, num, 
               <span className="text-[#D7E2EA] opacity-60 uppercase text-xs md:text-sm tracking-wider font-light">
                 {category}
               </span>
-              <h3 className="text-[#D7E2EA] font-semibold text-sm sm:text-base md:text-2xl uppercase tracking-wide">
-                {name}
+              <h3 className="text-[#D7E2EA] font-semibold text-sm sm:text-base md:text-2xl uppercase tracking-wide flex items-center gap-2.5 flex-wrap">
+                <span>{name}</span>
+                {isOpenSource && (
+                  <span className="inline-flex items-center gap-1.5 text-[8px] sm:text-[9px] font-black tracking-widest text-[#B600A8] uppercase px-2.5 py-1 rounded-full bg-[#B600A8]/10 border border-[#B600A8]/30 select-none shadow-[0_0_15px_rgba(182,0,168,0.15)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#B600A8] animate-pulse" />
+                    Open Source
+                  </span>
+                )}
               </h3>
             </div>
           </div>
