@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 
 interface AnimatedTextProps {
@@ -10,10 +10,11 @@ interface CharacterProps {
   children: string;
   progress: MotionValue<number>;
   range: [number, number];
+  isDark: boolean;
 }
 
-const Character: React.FC<CharacterProps> = ({ children, progress, range }) => {
-  const opacity = useTransform(progress, range, [0.2, 1]);
+const Character: React.FC<CharacterProps> = ({ children, progress, range, isDark }) => {
+  const opacity = useTransform(progress, range, [isDark ? 0.2 : 0.45, 1]);
   return (
     <span className="relative inline-block">
       <span className="opacity-0">{children}</span>
@@ -34,6 +35,25 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ text, className = ""
     offset: ['start 0.8', 'end 0.2']
   });
 
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    // Check initial state
+    setIsDark(document.documentElement.classList.contains('dark'));
+
+    // Create a MutationObserver to listen for class changes on document.documentElement
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const words = text.split(" ");
   const totalChars = text.length;
   let charCount = 0;
@@ -49,7 +69,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ text, className = ""
               const end = (charCount + 1) / totalChars;
               charCount++;
               return (
-                <Character key={cIdx} progress={scrollYProgress} range={[start, end]}>
+                <Character key={cIdx} progress={scrollYProgress} range={[start, end]} isDark={isDark}>
                   {char}
                 </Character>
               );
@@ -63,7 +83,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ text, className = ""
                   const end = (charCount + 1) / totalChars;
                   charCount++;
                   return (
-                    <Character progress={scrollYProgress} range={[start, end]}>
+                    <Character progress={scrollYProgress} range={[start, end]} isDark={isDark}>
                       &nbsp;
                     </Character>
                   );

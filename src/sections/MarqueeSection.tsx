@@ -45,7 +45,7 @@ export const MarqueeSection: React.FC = () => {
   const row2Transform = `translateX(${-(scrollOffset - 200)}px)`;
 
   return (
-    <div ref={sectionRef} className="bg-[#0C0C0C] pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden flex flex-col gap-3">
+    <div ref={sectionRef} className="bg-white dark:bg-[#0C0C0C] pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden flex flex-col gap-3 transition-colors duration-500">
       {/* Row 1 - moves right */}
       <div className="w-full flex overflow-hidden">
         <div
@@ -58,7 +58,7 @@ export const MarqueeSection: React.FC = () => {
               src={url.startsWith('/') ? `${import.meta.env.BASE_URL}${url.slice(1)}` : url}
               alt={`GIF r1-${idx}`}
               loading="lazy"
-              className="w-[420px] h-[270px] rounded-2xl object-cover flex-shrink-0 select-none pointer-events-none"
+              className="w-[420px] h-[270px] rounded-2xl object-cover flex-shrink-0 select-none pointer-events-none border border-black/10 dark:border-white/10 shadow-sm dark:shadow-none transition-all duration-500"
             />
           ))}
         </div>
@@ -76,7 +76,7 @@ export const MarqueeSection: React.FC = () => {
               src={url.startsWith('/') ? `${import.meta.env.BASE_URL}${url.slice(1)}` : url}
               alt={`GIF r2-${idx}`}
               loading="lazy"
-              className="w-[420px] h-[270px] rounded-2xl object-cover flex-shrink-0 select-none pointer-events-none"
+              className="w-[420px] h-[270px] rounded-2xl object-cover flex-shrink-0 select-none pointer-events-none border border-black/10 dark:border-white/10 shadow-sm dark:shadow-none transition-all duration-500"
             />
           ))}
         </div>

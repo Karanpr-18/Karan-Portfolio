@@ -9,7 +9,7 @@ interface LiveProjectButtonProps {
 export const LiveProjectButton: React.FC<LiveProjectButtonProps> = ({ href, onClick, label = "Live Project" }) => {
   const isGithub = label.toLowerCase().includes("github");
   
-  const className = "flex items-center gap-2 rounded-full border border-[#D7E2EA] text-[#D7E2EA] font-medium uppercase tracking-widest px-4 py-2 sm:px-5 sm:py-2.5 text-xs transition-all duration-300 hover:bg-[#D7E2EA]/10 active:scale-95 text-center justify-center";
+  const className = "flex items-center gap-2 rounded-full border border-black text-black hover:bg-black/5 dark:border-[#D7E2EA] dark:text-[#D7E2EA] font-medium uppercase tracking-widest px-4 py-2 sm:px-5 sm:py-2.5 text-xs transition-all duration-300 dark:hover:bg-[#D7E2EA]/10 active:scale-95 text-center justify-center";
 
   const icon = isGithub ? (
     <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
