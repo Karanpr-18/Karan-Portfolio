@@ -6,7 +6,7 @@ import { ContactButton } from '../components/ContactButton';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section id="about" className="min-h-screen w-full relative bg-[#0C0C0C] px-5 sm:px-8 md:px-10 py-20 flex flex-col items-center justify-center overflow-hidden">
+    <section id="about" className="min-h-screen w-full relative bg-white dark:bg-[#0C0C0C] px-5 sm:px-8 md:px-10 py-20 flex flex-col items-center justify-center overflow-hidden transition-colors duration-500">
       {/* Background Glowing Blobs */}
       <motion.div
         animate={{
@@ -20,7 +20,7 @@ export const AboutSection: React.FC = () => {
           duration: 12,
           ease: "easeInOut"
         }}
-        className="absolute top-[20%] left-[10%] w-[300px] h-[300px] rounded-full bg-[#7621B0] filter blur-[100px] pointer-events-none z-0"
+        className="absolute top-[20%] left-[10%] w-[300px] h-[300px] rounded-full bg-[#7621B0] filter blur-[100px] pointer-events-none z-0 transition-all duration-500 opacity-[0.04] dark:opacity-20"
       />
       <motion.div
         animate={{
@@ -34,7 +34,7 @@ export const AboutSection: React.FC = () => {
           duration: 15,
           ease: "easeInOut"
         }}
-        className="absolute bottom-[20%] right-[10%] w-[350px] h-[350px] rounded-full bg-[#B600A8] filter blur-[120px] pointer-events-none z-0"
+        className="absolute bottom-[20%] right-[10%] w-[350px] h-[350px] rounded-full bg-[#B600A8] filter blur-[120px] pointer-events-none z-0 transition-all duration-500 opacity-[0.03] dark:opacity-[0.15]"
       />
 
       {/* Corner Decorative 3D Images with floating animations */}
@@ -169,7 +169,7 @@ export const AboutSection: React.FC = () => {
           <div style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }} className="w-full max-w-[560px]">
             <AnimatedText
               text="I am an AI Engineer passionate about building intelligent, scalable, and autonomous systems. I focus on multi-agent architectures, natural language processing, and RAG applications, and I truly enjoy crafting state-of-the-art solutions that stand out. Let's build something incredible together!"
-              className="text-[#D7E2EA] font-medium leading-relaxed text-center flex flex-wrap justify-center"
+              className="text-black/80 dark:text-[#D7E2EA] font-medium leading-relaxed text-center flex flex-wrap justify-center transition-colors duration-500"
             />
           </div>
         </div>

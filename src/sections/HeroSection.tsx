@@ -20,11 +20,11 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       ref={heroRef}
-      className="h-screen w-full relative overflow-hidden bg-[#0C0C0C]"
+      className="h-screen w-full relative overflow-hidden bg-white dark:bg-[#0C0C0C] transition-colors duration-500"
     >
       {/* ── Background ambient blobs ───────────────────────────── */}
-      <div className="absolute top-[-10%] left-[-10%] w-[350px] h-[350px] rounded-full bg-[#18011F] blur-[120px] pointer-events-none z-0" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] rounded-full bg-[#7621B0]/20 blur-[140px] pointer-events-none z-0" />
+      <div className="absolute top-[-10%] left-[-10%] w-[350px] h-[350px] rounded-full bg-[#7621B0]/10 dark:bg-[#18011F] blur-[120px] pointer-events-none z-0 transition-all duration-500" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] rounded-full bg-[#B600A8]/5 dark:bg-[#7621B0]/20 blur-[140px] pointer-events-none z-0 transition-all duration-500" />
 
       {/* ── Navbar ────────────────────────────────────────────── */}
       <FadeIn
@@ -38,7 +38,7 @@ export const HeroSection: React.FC = () => {
             key={id}
             href={`#${id}`}
             onClick={(e) => { e.preventDefault(); scrollTo(id); }}
-            className="relative text-[#D7E2EA] font-medium uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-100 group py-1"
+            className="relative text-black/70 dark:text-[#D7E2EA]/85 hover:text-black dark:hover:text-white font-medium uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-100 group py-1 transition-colors duration-300"
             style={{ cursor: 'pointer' }}
           >
             {id === 'services' ? 'Tech Stack' : id.charAt(0).toUpperCase() + id.slice(1)}
@@ -93,7 +93,7 @@ export const HeroSection: React.FC = () => {
       <div className="absolute bottom-0 left-0 right-0 flex justify-between items-end pb-7 sm:pb-8 md:pb-10 px-6 md:px-10 z-30">
         <FadeIn delay={0.35} y={20} as="div" className="max-w-[160px] sm:max-w-[220px] md:max-w-[260px]">
           <p
-            className="text-[#D7E2EA] font-light uppercase tracking-wide leading-snug text-left"
+            className="text-black/70 dark:text-[#D7E2EA] font-light uppercase tracking-wide leading-snug text-left transition-colors duration-500"
             style={{ fontSize: 'clamp(0.75rem, 1.4vw, 1.5rem)' }}
           >
             an ai engineer driven by crafting striking, intelligent, and state-of-the-art solutions

@@ -89,6 +89,7 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ index, total, progress, num, category, name, desc, tags, image, github, live, isOpenSource }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
 
   // Spotlight state
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -123,28 +124,30 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ index, total, progress, num, 
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ scale, willChange: 'transform', transformOrigin: 'top center' }}
-        className="w-full h-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#0C0C0C] p-4 sm:p-6 md:p-8 flex flex-col justify-between relative overflow-hidden hover:shadow-[0_10px_40px_rgba(182,0,168,0.2)] transition-shadow duration-300"
+        className="w-full h-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-black/20 dark:border-[#D7E2EA] bg-white dark:bg-[#0C0C0C] p-4 sm:p-6 md:p-8 flex flex-col justify-between relative overflow-hidden hover:shadow-[0_10px_40px_rgba(182,0,168,0.06)] dark:hover:shadow-[0_10px_40px_rgba(182,0,168,0.2)] transition-all duration-500"
       >
         {/* Spotlight Overlay */}
         <div
           className="absolute pointer-events-none inset-0 transition-opacity duration-300 z-0"
           style={{
             opacity: isHovered ? 1 : 0,
-            background: `radial-gradient(500px circle at ${mousePos.x}px ${mousePos.y}px, rgba(182, 0, 168, 0.12), transparent 80%)`,
+            background: isDark 
+              ? `radial-gradient(500px circle at ${mousePos.x}px ${mousePos.y}px, rgba(182, 0, 168, 0.12), transparent 80%)` 
+              : `radial-gradient(500px circle at ${mousePos.x}px ${mousePos.y}px, rgba(182, 0, 168, 0.05), transparent 80%)`,
           }}
         />
 
         {/* Top Row */}
         <div className="flex justify-between items-start w-full z-10 relative">
           <div className="flex items-center gap-4">
-            <span className="font-black text-[#D7E2EA] text-[2rem] sm:text-[2.5rem] md:text-[3.5rem] leading-none select-none">
+            <span className="font-black text-black dark:text-[#D7E2EA] text-[2rem] sm:text-[2.5rem] md:text-[3.5rem] leading-none select-none transition-colors duration-500">
               {num}
             </span>
             <div className="flex flex-col text-left">
-              <span className="text-[#D7E2EA] opacity-60 uppercase text-xs md:text-sm tracking-wider font-light">
+              <span className="text-black dark:text-[#D7E2EA] opacity-60 uppercase text-xs md:text-sm tracking-wider font-light transition-colors duration-500">
                 {category}
               </span>
-              <h3 className="text-[#D7E2EA] font-semibold text-sm sm:text-base md:text-2xl uppercase tracking-wide flex items-center gap-2.5 flex-wrap">
+              <h3 className="text-black dark:text-[#D7E2EA] font-semibold text-sm sm:text-base md:text-2xl uppercase tracking-wide flex items-center gap-2.5 flex-wrap transition-colors duration-500">
                 <span>{name}</span>
                 {isOpenSource && (
                   <span className="inline-flex items-center gap-1.5 text-[8px] sm:text-[9px] font-black tracking-widest text-[#B600A8] uppercase px-2.5 py-1 rounded-full bg-[#B600A8]/10 border border-[#B600A8]/30 select-none shadow-[0_0_15px_rgba(182,0,168,0.15)]">
@@ -163,14 +166,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ index, total, progress, num, 
 
         {/* Description & Tags */}
         <div className="w-full text-left mt-4 mb-4 z-10 relative">
-          <p className="text-[#D7E2EA]/85 font-light text-xs sm:text-sm md:text-base leading-relaxed mb-3">
+          <p className="text-black/80 dark:text-[#D7E2EA]/85 font-light text-xs sm:text-sm md:text-base leading-relaxed mb-3 transition-colors duration-500">
             {desc}
           </p>
           <div className="flex flex-wrap gap-1.5">
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="text-[9px] sm:text-[10px] font-medium uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 text-[#D7E2EA]/90"
+                className="text-[9px] sm:text-[10px] font-medium uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-black/10 dark:border-[#D7E2EA]/20 bg-black/5 dark:bg-[#D7E2EA]/5 text-black/90 dark:text-[#D7E2EA]/90 transition-colors duration-500"
               >
                 {tag}
               </span>
@@ -180,7 +183,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ index, total, progress, num, 
 
         {/* Image Display */}
         <div className="w-full h-0 flex-grow overflow-hidden z-10 relative">
-          <div className="w-full h-full overflow-hidden rounded-[20px] sm:rounded-[30px] md:rounded-[40px] border border-[#D7E2EA]/10 relative group">
+          <div className="w-full h-full overflow-hidden rounded-[20px] sm:rounded-[30px] md:rounded-[40px] border border-black/5 dark:border-[#D7E2EA]/10 relative group transition-colors duration-500">
             <img
               src={image.startsWith('/') ? `${import.meta.env.BASE_URL}${image.slice(1)}` : image}
               alt={`${name} preview`}
@@ -206,7 +209,7 @@ export const ProjectsSection: React.FC = () => {
   return (
     <section
       id="projects"
-      className="bg-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 pt-20 pb-40 relative z-20"
+      className="bg-white dark:bg-[#0C0C0C] text-black dark:text-[#D7E2EA] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 pt-20 pb-40 relative z-20 transition-colors duration-500"
     >
       <div className="w-full max-w-5xl mx-auto px-5 sm:px-8 md:px-10">
         <FadeIn delay={0} y={40} className="w-full text-center mb-16 sm:mb-20 md:mb-28">

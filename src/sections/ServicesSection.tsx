@@ -209,12 +209,13 @@ const TECH_STACK = [
 
 export const ServicesSection: React.FC = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number>(0);
+  const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
 
   return (
-    <section id="services" className="bg-[#0C0C0C] text-[#D7E2EA] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 relative z-20">
+    <section id="services" className="bg-white dark:bg-[#0C0C0C] text-black dark:text-[#D7E2EA] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 relative z-20 transition-colors duration-500">
       <div className="w-full max-w-7xl mx-auto">
         <FadeIn delay={0} y={40} className="w-full text-center">
-          <h2 className="font-black uppercase text-center mb-16 sm:mb-20 md:mb-24 text-[#D7E2EA]" style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}>
+          <h2 className="font-black uppercase text-center mb-16 sm:mb-20 md:mb-24 text-black dark:text-[#D7E2EA]" style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}>
             Tech Stack
           </h2>
         </FadeIn>
@@ -223,7 +224,7 @@ export const ServicesSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Left Column: Tech Stack list */}
-          <div className="lg:col-span-7 border-t border-[rgba(215,226,234,0.15)] w-full">
+          <div className="lg:col-span-7 border-t border-[rgba(12,12,12,0.15)] dark:border-[rgba(215,226,234,0.15)] w-full">
             {TECH_STACK.map((tech, i) => {
               const isActive = hoveredIdx === i;
 
@@ -231,11 +232,11 @@ export const ServicesSection: React.FC = () => {
                 <div
                   key={tech.num}
                   onMouseEnter={() => setHoveredIdx(i)}
-                  className="group py-8 border-b border-[rgba(215,226,234,0.15)] transition-colors duration-300 cursor-pointer text-left relative overflow-hidden"
+                  className="group py-8 border-b border-[rgba(12,12,12,0.15)] dark:border-[rgba(215,226,234,0.15)] transition-colors duration-300 cursor-pointer text-left relative overflow-hidden"
                 >
                   {/* Subtle active background glow */}
                   <motion.div
-                    className="absolute inset-0 bg-white/[0.02] -z-10"
+                    className="absolute inset-0 bg-black/[0.02] dark:bg-white/[0.02] -z-10"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: isActive ? 1 : 0 }}
                     transition={{ duration: 0.2 }}
@@ -246,7 +247,7 @@ export const ServicesSection: React.FC = () => {
                     <motion.div
                       animate={{
                         scale: isActive ? 1.05 : 1,
-                        color: isActive ? '#B600A8' : '#D7E2EA',
+                        color: isActive ? '#B600A8' : (isDark ? '#D7E2EA' : '#A0AEC0'),
                       }}
                       transition={{ duration: 0.3 }}
                       className="font-black leading-none select-none min-w-[50px] sm:min-w-[80px]"
@@ -260,7 +261,7 @@ export const ServicesSection: React.FC = () => {
                       <motion.h3
                         animate={{
                           x: isActive ? 8 : 0,
-                          color: isActive ? '#D7E2EA' : 'rgba(215, 226, 234, 0.6)',
+                          color: isActive ? (isDark ? '#D7E2EA' : '#0C0C0C') : (isDark ? 'rgba(215, 226, 234, 0.6)' : 'rgba(12, 12, 12, 0.6)'),
                         }}
                         transition={{ duration: 0.3 }}
                         className="font-medium uppercase leading-tight"
@@ -270,7 +271,7 @@ export const ServicesSection: React.FC = () => {
                       </motion.h3>
                       
                       <p
-                        className="font-light leading-relaxed text-[#D7E2EA] opacity-60 mt-2 max-w-xl transition-all duration-300"
+                        className="font-light leading-relaxed text-black/70 dark:text-[#D7E2EA] opacity-60 mt-2 max-w-xl transition-all duration-300"
                         style={{ fontSize: 'clamp(0.85rem, 1.6vw, 1.15rem)' }}
                       >
                         {tech.desc}
@@ -284,7 +285,7 @@ export const ServicesSection: React.FC = () => {
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="lg:hidden w-full overflow-hidden mt-4 grid grid-cols-3 sm:grid-cols-4 gap-2.5 p-3.5 bg-white/[0.02] border border-white/10 rounded-[24px]"
+                            className="lg:hidden w-full overflow-hidden mt-4 grid grid-cols-3 sm:grid-cols-4 gap-2.5 p-3.5 bg-black/[0.02] dark:bg-white/[0.02] border border-black/10 dark:border-white/10 rounded-[24px]"
                           >
                             {tech.tags.map((tag) => {
                               const info = TECH_INFO[tag.toUpperCase()] || {
@@ -304,23 +305,25 @@ export const ServicesSection: React.FC = () => {
                                   info.logoUrl.includes('crawl4ai') ||
                                   tag.toUpperCase() === 'FLASK'
                                 ));
+                              const shouldInvert = isDark && isDarkLogo;
+
                               return (
                                 <div
                                   key={tag}
-                                  className="flex flex-col items-center justify-between p-2 rounded-2xl bg-[#141414] border border-white/10 shadow-sm hover:border-[#B600A8]/30 transition-all duration-300 min-h-[104px] [&_svg]:w-14 [&_svg]:h-14"
+                                  className="flex flex-col items-center justify-between p-2 rounded-2xl bg-white dark:bg-[#141414] border border-black/10 dark:border-white/10 shadow-sm hover:border-[#B600A8]/30 transition-all duration-300 min-h-[104px] [&_svg]:w-14 [&_svg]:h-14"
                                 >
                                   <div className="flex-grow flex items-center justify-center h-14 w-14">
                                     {info.logoUrl ? (
                                       <img
                                         src={info.logoUrl}
-                                        className={`w-14 h-14 object-contain ${isDarkLogo ? 'invert brightness-200' : ''}`}
+                                        className={`w-14 h-14 object-contain ${shouldInvert ? 'invert brightness-200' : ''}`}
                                         alt={tag}
                                       />
                                     ) : (
                                       info.svg
                                     )}
                                   </div>
-                                  <span className="text-[9px] font-black text-center uppercase tracking-wider text-[#D7E2EA]/90 font-mono mt-1">
+                                  <span className="text-[9px] font-black text-center uppercase tracking-wider text-black/90 dark:text-[#D7E2EA]/90 font-mono mt-1">
                                     {tag}
                                   </span>
                                 </div>
@@ -338,13 +341,13 @@ export const ServicesSection: React.FC = () => {
 
           {/* Right Column: Dynamic interactive preview card (Desktop only) */}
           <div className="hidden lg:block lg:col-span-5 sticky top-32 h-[580px]">
-            <div className="w-full h-full rounded-[40px] border border-white/10 bg-gradient-to-tr from-[#0C0C0C] to-[#141414]/50 p-6 flex flex-col justify-between overflow-hidden shadow-lg relative">
+            <div className="w-full h-full rounded-[40px] border border-black/10 dark:border-white/10 bg-gradient-to-tr from-white/90 to-[#0C0C0C]/5 dark:from-[#0C0C0C] dark:to-[#141414]/50 p-6 flex flex-col justify-between overflow-hidden shadow-lg relative transition-colors duration-500">
               
               {/* Viewport scanline grid backing */}
               <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
 
               {/* Grid of Mini Cards instead of Image */}
-              <div className="w-full h-[400px] rounded-[24px] border border-white/5 overflow-hidden relative shadow-inner p-4 bg-white/[0.01]">
+              <div className="w-full h-[400px] rounded-[24px] border border-black/5 dark:border-white/5 overflow-hidden relative shadow-inner p-4 bg-black/[0.01] dark:bg-white/[0.01] transition-colors duration-500">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={hoveredIdx}
@@ -372,25 +375,26 @@ export const ServicesSection: React.FC = () => {
                           info.logoUrl.includes('crawl4ai') ||
                           tag.toUpperCase() === 'FLASK'
                         ));
+                      const shouldInvert = isDark && isDarkLogo;
 
                       return (
                         <motion.div
                           key={tag}
-                          className="flex flex-col items-center justify-between p-2 rounded-2xl bg-[#141414] border border-white/10 shadow-sm hover:border-[#B600A8]/40 transition-all duration-300 transform hover:scale-[1.05] hover:shadow-md cursor-pointer h-28 [&_svg]:w-16 [&_svg]:h-16 text-[#D7E2EA]"
+                          className="flex flex-col items-center justify-between p-2 rounded-2xl bg-white dark:bg-[#141414] border border-black/10 dark:border-white/10 shadow-sm hover:border-[#B600A8]/40 transition-all duration-300 transform hover:scale-[1.05] hover:shadow-md cursor-pointer h-28 [&_svg]:w-16 [&_svg]:h-16 text-black dark:text-[#D7E2EA]"
                           whileHover={{ y: -2 }}
                         >
                           <div className="flex-grow flex items-center justify-center h-16 w-16">
                             {info.logoUrl ? (
                               <img
                                 src={info.logoUrl}
-                                className={`w-16 h-16 object-contain ${isDarkLogo ? 'invert brightness-200' : ''}`}
+                                className={`w-16 h-16 object-contain ${shouldInvert ? 'invert brightness-200' : ''}`}
                                 alt={tag}
                               />
                             ) : (
                               info.svg
                             )}
                           </div>
-                          <span className="text-[9px] font-black text-center uppercase tracking-wider text-[#D7E2EA]/90 font-mono mt-1">
+                          <span className="text-[9px] font-black text-center uppercase tracking-wider text-black/90 dark:text-[#D7E2EA]/90 font-mono mt-1">
                             {tag}
                           </span>
                         </motion.div>
@@ -408,8 +412,8 @@ export const ServicesSection: React.FC = () => {
                   </span>
                   <div className="flex gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-[#B600A8] animate-pulse" />
-                    <span className="w-2 h-2 rounded-full bg-white/20" />
-                    <span className="w-2 h-2 rounded-full bg-white/20" />
+                    <span className="w-2 h-2 rounded-full bg-black/10 dark:bg-white/20" />
+                    <span className="w-2 h-2 rounded-full bg-black/10 dark:bg-white/20" />
                   </div>
                 </div>
                 <h4 className="text-xl font-bold uppercase tracking-wide">
@@ -417,7 +421,7 @@ export const ServicesSection: React.FC = () => {
                 </h4>
                 <div className="flex flex-wrap gap-1.5 mt-1">
                   {TECH_STACK[hoveredIdx].tags.map((tag) => (
-                    <span key={tag} className="text-[10px] uppercase font-medium tracking-wider px-2.5 py-0.5 rounded-full border border-white/10 bg-[#D7E2EA]/5 text-[#D7E2EA]/95">
+                    <span key={tag} className="text-[10px] uppercase font-medium tracking-wider px-2.5 py-0.5 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-[#D7E2EA]/5 text-black dark:text-[#D7E2EA]/95">
                       {tag}
                     </span>
                   ))}
