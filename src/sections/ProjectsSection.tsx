@@ -182,7 +182,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ index, total, progress, num, 
         <div className="w-full h-0 flex-grow overflow-hidden z-10 relative">
           <div className="w-full h-full overflow-hidden rounded-[20px] sm:rounded-[30px] md:rounded-[40px] border border-[#D7E2EA]/10 relative group">
             <img
-              src={image}
+              src={image.startsWith('/') ? `${import.meta.env.BASE_URL}${image.slice(1)}` : image}
               alt={`${name} preview`}
               className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               loading="lazy"

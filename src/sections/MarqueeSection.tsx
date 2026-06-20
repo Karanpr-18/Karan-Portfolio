@@ -55,7 +55,7 @@ export const MarqueeSection: React.FC = () => {
           {row1Tripled.map((url, idx) => (
             <img
               key={`r1-${idx}`}
-              src={url}
+              src={url.startsWith('/') ? `${import.meta.env.BASE_URL}${url.slice(1)}` : url}
               alt={`GIF r1-${idx}`}
               loading="lazy"
               className="w-[420px] h-[270px] rounded-2xl object-cover flex-shrink-0 select-none pointer-events-none"
@@ -73,7 +73,7 @@ export const MarqueeSection: React.FC = () => {
           {row2Tripled.map((url, idx) => (
             <img
               key={`r2-${idx}`}
-              src={url}
+              src={url.startsWith('/') ? `${import.meta.env.BASE_URL}${url.slice(1)}` : url}
               alt={`GIF r2-${idx}`}
               loading="lazy"
               className="w-[420px] h-[270px] rounded-2xl object-cover flex-shrink-0 select-none pointer-events-none"
