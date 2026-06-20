@@ -295,6 +295,15 @@ export const ServicesSection: React.FC = () => {
                                   </div>
                                 )
                               };
+                              const isDarkLogo = info.color === '#000000' || 
+                                (info.logoUrl && (
+                                  info.logoUrl.includes('simple-icons') || 
+                                  info.logoUrl.includes('lobehub') || 
+                                  info.logoUrl.includes('alicdn') || 
+                                  info.logoUrl.includes('media.licdn.com') ||
+                                  info.logoUrl.includes('crawl4ai') ||
+                                  tag.toUpperCase() === 'FLASK'
+                                ));
                               return (
                                 <div
                                   key={tag}
@@ -304,7 +313,7 @@ export const ServicesSection: React.FC = () => {
                                     {info.logoUrl ? (
                                       <img
                                         src={info.logoUrl}
-                                        className={`w-14 h-14 object-contain ${info.color === '#000000' ? 'invert brightness-200' : ''}`}
+                                        className={`w-14 h-14 object-contain ${isDarkLogo ? 'invert brightness-200' : ''}`}
                                         alt={tag}
                                       />
                                     ) : (
@@ -354,6 +363,15 @@ export const ServicesSection: React.FC = () => {
                           </div>
                         )
                       };
+                      const isDarkLogo = info.color === '#000000' || 
+                        (info.logoUrl && (
+                          info.logoUrl.includes('simple-icons') || 
+                          info.logoUrl.includes('lobehub') || 
+                          info.logoUrl.includes('alicdn') || 
+                          info.logoUrl.includes('media.licdn.com') ||
+                          info.logoUrl.includes('crawl4ai') ||
+                          tag.toUpperCase() === 'FLASK'
+                        ));
 
                       return (
                         <motion.div
@@ -365,7 +383,7 @@ export const ServicesSection: React.FC = () => {
                             {info.logoUrl ? (
                               <img
                                 src={info.logoUrl}
-                                className={`w-16 h-16 object-contain ${info.color === '#000000' ? 'invert brightness-200' : ''}`}
+                                className={`w-16 h-16 object-contain ${isDarkLogo ? 'invert brightness-200' : ''}`}
                                 alt={tag}
                               />
                             ) : (
