@@ -7,7 +7,7 @@ import { SplineScene } from '../components/SplineScene';
 /* ─── HeroSection ────────────────────────────────────────────── */
 export const HeroSection: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
-  const [ready, setReady]           = useState(false);
+  const [ready, setReady] = useState(false);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -41,7 +41,7 @@ export const HeroSection: React.FC = () => {
             className="relative text-[#D7E2EA] font-medium uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-100 group py-1"
             style={{ cursor: 'pointer' }}
           >
-            {id === 'services' ? 'Price' : id.charAt(0).toUpperCase() + id.slice(1)}
+            {id === 'services' ? 'Tech Stack' : id.charAt(0).toUpperCase() + id.slice(1)}
             <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#B600A8] to-[#7621B0] scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100" />
           </a>
         ))}
@@ -49,12 +49,12 @@ export const HeroSection: React.FC = () => {
 
       {/* ── Hero heading (behind robot) ───────────────────────── */}
       <div
-        className="absolute inset-0 flex items-center justify-center pointer-events-none -translate-y-12 md:-translate-y-20"
+        className="absolute inset-0 flex items-center justify-center pointer-events-none -translate-y-50 md:-translate-y-60"
         style={{ zIndex: 8 }}
       >
         <div className="w-full overflow-hidden px-4">
           <FadeIn delay={0.15} y={40} as="div" className="w-full text-center">
-            <h1 className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap w-full text-[14vw] sm:text-[15vw] md:text-[16vw] lg:text-[17.5vw] select-none">
+            <h1 className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap w-full text-[11vw] sm:text-[14vw] md:text-[14vw] lg:text-[15vw] select-none">
               Hi, i&apos;m karan
             </h1>
           </FadeIn>
@@ -81,7 +81,7 @@ export const HeroSection: React.FC = () => {
             }}
           />
           <div className="relative w-full h-full z-10">
-            <SplineScene 
+            <SplineScene
               scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
               className="w-full h-full"
             />

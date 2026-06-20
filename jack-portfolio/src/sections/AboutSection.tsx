@@ -58,9 +58,9 @@ export const AboutSection: React.FC = () => {
           }}
           className="w-full"
         >
-          <img 
-            src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png" 
-            alt="Moon icon" 
+          <img
+            src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png"
+            alt="Moon icon"
             className="w-full h-auto select-none pointer-events-none"
           />
         </motion.div>
@@ -87,9 +87,9 @@ export const AboutSection: React.FC = () => {
           }}
           className="w-full"
         >
-          <img 
-            src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png" 
-            alt="3D object" 
+          <img
+            src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png"
+            alt="3D object"
             className="w-full h-auto select-none pointer-events-none"
           />
         </motion.div>
@@ -116,9 +116,9 @@ export const AboutSection: React.FC = () => {
           }}
           className="w-full"
         >
-          <img 
-            src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png" 
-            alt="Lego icon" 
+          <img
+            src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png"
+            alt="Lego icon"
             className="w-full h-auto select-none pointer-events-none"
           />
         </motion.div>
@@ -145,9 +145,9 @@ export const AboutSection: React.FC = () => {
           }}
           className="w-full"
         >
-          <img 
-            src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png" 
-            alt="3D group" 
+          <img
+            src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png"
+            alt="3D group"
             className="w-full h-auto select-none pointer-events-none"
           />
         </motion.div>
@@ -168,7 +168,7 @@ export const AboutSection: React.FC = () => {
         <div className="mt-10 sm:mt-14 md:mt-16 w-full flex justify-center px-4">
           <div style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }} className="w-full max-w-[560px]">
             <AnimatedText
-              text="I am an AI Engineer passionate about building intelligent, scalable, and autonomous systems. I focus on multi-agent architectures, machine learning, and full-stack development, and I truly enjoy crafting state-of-the-art solutions that stand out. Let's build something incredible together!"
+              text="I am an AI Engineer passionate about building intelligent, scalable, and autonomous systems. I focus on multi-agent architectures, natural language processing, and RAG applications, and I truly enjoy crafting state-of-the-art solutions that stand out. Let's build something incredible together!"
               className="text-[#D7E2EA] font-medium leading-relaxed text-center flex flex-wrap justify-center"
             />
           </div>

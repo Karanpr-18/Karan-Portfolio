@@ -6,17 +6,21 @@ import { LiveProjectButton } from '../components/LiveProjectButton';
 const PROJECTS = [
   {
     num: "01",
-    category: "Full Stack & Multi-Agent",
+    category: "Autonomous Multi-Agent Swarm & Graph RAG",
     name: "Career-Orbit",
-    image: "/images/used_car.png",
+    desc: "A fully autonomous multi-agent swarm and Graph RAG job hunter command center. Autonomously crawls job portals, evaluates fit via semantic scoring, auto-fills application forms with target email fallbacks, and tracks applications using a local Graph database with conversational RAG query capabilities.",
+    tags: ["Next.js", "Python", "SurrealDB", "Playwright", "Docker"],
+    image: "/images/career_orbit.png",
     github: "https://github.com/Karanpr-18/Career-Orbit",
     live: ""
   },
   {
     num: "02",
-    category: "Multi-Agent AI",
+    category: "Multi-Agent Swarm Debate Engine",
     name: "TechHubAI",
-    image: "/images/talent_ai.png",
+    desc: "A next-generation multi-agent swarm debate engine to orchestrate and observe complex AI debates between independent LLM agents in a real-time interactive claymorphic environment. Features token optimization, pre-summarization, and sliding-window context compression.",
+    tags: ["Next.js", "TypeScript", "FastAPI", "AgentScope", "Crawl4AI"],
+    image: "/images/techhubai.png",
     github: "https://github.com/Karanpr-18/TechHubAI",
     live: ""
   },
@@ -24,6 +28,8 @@ const PROJECTS = [
     num: "03",
     category: "AI HR Platform",
     name: "Talent AI",
+    desc: "AI-powered hiring platform with Gemini-based resume parsing, intelligent candidate scoring, and automated recruitment workflows.",
+    tags: ["Python", "Flask", "Gemini API", "Pandas"],
     image: "/images/talent_ai.png",
     github: "https://github.com/Karanpr-18/HR-management-app",
     live: "https://hr-management-app-w6xc.onrender.com/"
@@ -32,14 +38,18 @@ const PROJECTS = [
     num: "04",
     category: "NLP Tool",
     name: "CV Job Matcher",
+    desc: "NLP-based CV–job matching tool that scores resume relevance against job descriptions for fast recruitment filtering.",
+    tags: ["SpaCy", "Scikit-Learn", "Streamlit"],
     image: "/images/job_scanner.png",
     github: "https://github.com/Karanpr-18/Job_matcher",
     live: "https://job-scan-app.streamlit.app/"
   },
   {
     num: "05",
-    category: "Data Analytics",
+    category: "Data Analytics & Pricing Model",
     name: "Used Car Project",
+    desc: "End-to-end used car price analysis with EDA, SQL-based cleaning, and interactive client-side price prediction on GitHub Pages.",
+    tags: ["HTML/CSS/JS", "Power-BI", "SQL (SQLite)"],
     image: "/images/used_car.png",
     github: "https://github.com/Karanpr-18/Used_car_project",
     live: "https://karanpr-18.github.io/Used_car_project/"
@@ -48,6 +58,8 @@ const PROJECTS = [
     num: "06",
     category: "NLP Platform",
     name: "AI News Analyser",
+    desc: "News Intelligence Toolkit with three NLP models — Fake News Detection (89%), Hate Speech Detection (80%), and News Category Classification (89%) — deployed live.",
+    tags: ["NLP", "Scikit-Learn", "Streamlit", "Python"],
     image: "/images/news_analyser.png",
     github: "https://github.com/Karanpr-18/AI-news-analyser",
     live: "https://ai-news-analyser.streamlit.app/"
@@ -61,12 +73,14 @@ interface ProjectCardProps {
   num: string;
   category: string;
   name: string;
+  desc: string;
+  tags: string[];
   image: string;
   github: string;
   live: string;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ index, total, progress, num, category, name, image, github, live }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ index, total, progress, num, category, name, desc, tags, image, github, live }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   // Spotlight state
@@ -114,7 +128,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ index, total, progress, num, 
         />
 
         {/* Top Row */}
-        <div className="flex justify-between items-center w-full z-10 relative">
+        <div className="flex justify-between items-start w-full z-10 relative">
           <div className="flex items-center gap-4">
             <span className="font-black text-[#D7E2EA] text-[2rem] sm:text-[2.5rem] md:text-[3.5rem] leading-none select-none">
               {num}
@@ -134,8 +148,25 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ index, total, progress, num, 
           </div>
         </div>
 
+        {/* Description & Tags */}
+        <div className="w-full text-left mt-4 mb-4 z-10 relative">
+          <p className="text-[#D7E2EA]/85 font-light text-xs sm:text-sm md:text-base leading-relaxed mb-3">
+            {desc}
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[9px] sm:text-[10px] font-medium uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 text-[#D7E2EA]/90"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
         {/* Image Display */}
-        <div className="w-full h-full mt-6 flex-grow overflow-hidden z-10 relative">
+        <div className="w-full h-0 flex-grow overflow-hidden z-10 relative">
           <div className="w-full h-full overflow-hidden rounded-[20px] sm:rounded-[30px] md:rounded-[40px] border border-[#D7E2EA]/10 relative group">
             <img
               src={image}
