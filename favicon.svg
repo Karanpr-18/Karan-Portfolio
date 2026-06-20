@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#140226" />
+      <stop offset="100%" stop-color="#0C0C0C" />
+    </radialGradient>
+    <!-- Neon Purple Gradient -->
+    <linearGradient id="neonPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF00A0" />
+      <stop offset="50%" stop-color="#B600A8" />
+      <stop offset="100%" stop-color="#7621B0" />
+    </linearGradient>
+    <!-- Neon Blue/Cyan Gradient -->
+    <linearGradient id="neonCyan" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00C4CC" />
+      <stop offset="100%" stop-color="#00F0FF" />
+    </linearGradient>
+    <!-- Glow Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Background Circle (for nice rounded icon look) -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" stroke="#FF00A0" stroke-opacity="0.15" stroke-width="4"/>
+  
+  <!-- Glowing Neural Nodes in background -->
+  <g opacity="0.25">
+    <circle cx="150" cy="150" r="8" fill="#00F0FF" />
+    <circle cx="362" cy="150" r="8" fill="#FF00A0" />
+    <circle cx="256" cy="256" r="12" fill="#7621B0" />
+    <line x1="150" y1="150" x2="256" y2="256" stroke="#00F0FF" stroke-width="2" />
+    <line x1="362" y1="150" x2="256" y2="256" stroke="#FF00A0" stroke-width="2" />
+    <line x1="150" y1="362" x2="256" y2="256" stroke="#B600A8" stroke-width="2" />
+    <line x1="362" y1="362" x2="256" y2="256" stroke="#00F0FF" stroke-width="2" />
+    <circle cx="150" cy="362" r="8" fill="#B600A8" />
+    <circle cx="362" cy="362" r="8" fill="#00F0FF" />
+  </g>
+  
+  <!-- Stylized Futuristic Letter K -->
+  <g filter="url(#glow)">
+    <!-- Vertical Bar of K (Neural Pathway) -->
+    <path d="M 160 100 L 160 412" stroke="url(#neonPurple)" stroke-width="48" stroke-linecap="round" />
+    <path d="M 160 140 L 160 372" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" opacity="0.8" />
+    
+    <!-- Top Diagonal Arm of K -->
+    <path d="M 170 270 L 330 130" stroke="url(#neonCyan)" stroke-width="40" stroke-linecap="round" />
+    <path d="M 190 252 L 310 148" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" opacity="0.8" />
+    
+    <!-- Bottom Diagonal Arm of K -->
+    <path d="M 230 220 L 340 400" stroke="url(#neonPurple)" stroke-width="44" stroke-linecap="round" />
+    
+    <!-- Glowing Connection Joint -->
+    <circle cx="220" cy="227" r="28" fill="url(#neonCyan)" />
+    <circle cx="220" cy="227" r="12" fill="#FFFFFF" />
+  </g>
+</svg>
