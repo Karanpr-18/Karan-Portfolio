@@ -4,7 +4,6 @@ import { FadeIn } from '../components/FadeIn';
 import { ContactButton } from '../components/ContactButton';
 import {
   Briefcase,
-  GraduationCap,
   BookOpen,
   Calendar,
   MapPin,
@@ -14,9 +13,11 @@ import {
   Building2,
   FileText,
   TrendingUp,
+  Cpu,
+  Layers,
 } from 'lucide-react';
 
-type TabType = 'work' | 'publications' | 'education';
+type TabType = 'work' | 'research';
 
 export const ExperienceSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('work');
@@ -31,7 +32,7 @@ export const ExperienceSection: React.FC = () => {
       {/* Anchor for backward compatibility with #about */}
       <div id="about" className="absolute -top-20" />
 
-      {/* Ambient glowing blobs */}
+      {/* Ambient glowing background blobs */}
       <motion.div
         animate={{
           scale: [1, 1.2, 1],
@@ -93,7 +94,7 @@ export const ExperienceSection: React.FC = () => {
       </FadeIn>
 
       {/* Main Section Content */}
-      <div className="w-full max-w-6xl flex flex-col items-center z-20">
+      <div className="w-full max-w-5xl flex flex-col items-center z-20">
         {/* Section Heading */}
         <FadeIn delay={0} y={30} className="w-full text-center">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-mono tracking-widest uppercase text-black/70 dark:text-[#D7E2EA]/70 mb-4">
@@ -112,97 +113,109 @@ export const ExperienceSection: React.FC = () => {
           </p>
         </FadeIn>
 
-        {/* Interactive Tab Switcher & Resume Action */}
-        <FadeIn delay={0.15} y={20} className="mt-10 sm:mt-12 w-full flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-black/10 dark:border-white/10 pb-6">
-          <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-black/[0.03] dark:bg-white/[0.04] border border-black/10 dark:border-white/10 backdrop-blur-md">
+        {/* Redesigned Prominent Dual Tab Switcher & Resume Action */}
+        <FadeIn delay={0.15} y={20} className="mt-10 sm:mt-12 w-full flex flex-col items-center gap-5">
+          {/* Centered Segmented Control */}
+          <div className="w-full max-w-xl p-1.5 rounded-2xl bg-black/[0.04] dark:bg-white/[0.04] border border-black/10 dark:border-white/10 backdrop-blur-xl shadow-inner grid grid-cols-2 gap-2 relative z-30">
+            {/* Tab 1: Work Experience */}
             <button
+              type="button"
+              id="tab-work-experience"
               onClick={() => setActiveTab('work')}
-              className={`relative px-4 sm:px-5 py-2.5 rounded-xl font-medium text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 transition-all duration-300 cursor-pointer ${
-                activeTab === 'work'
+              className={`relative py-3 px-3 sm:px-5 rounded-xl font-medium text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all duration-300 cursor-pointer overflow-hidden ${activeTab === 'work'
                   ? 'text-white'
                   : 'text-black/70 dark:text-[#D7E2EA]/70 hover:text-black dark:hover:text-white'
-              }`}
+                }`}
             >
               {activeTab === 'work' && (
                 <motion.div
                   layoutId="activeExperienceTab"
-                  className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#B600A8] to-[#7621B0] shadow-md -z-10"
-                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#B600A8] to-[#7621B0] shadow-[0_4px_20px_rgba(182,0,168,0.35)] pointer-events-none"
+                  transition={{ type: 'spring', stiffness: 450, damping: 32 }}
                 />
               )}
-              <Briefcase className="w-4 h-4" />
-              <span>Work Experience</span>
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${activeTab === 'work' ? 'bg-white/20 text-white' : 'bg-black/10 dark:bg-white/10 text-black/60 dark:text-white/60'}`}>
+              <Briefcase className="w-4 h-4 flex-shrink-0 relative z-10" />
+              <span className="font-semibold relative z-10">Work Experience</span>
+              <span
+                className={`text-[10px] font-mono px-2 py-0.5 rounded-full relative z-10 ${activeTab === 'work'
+                    ? 'bg-white/25 text-white'
+                    : 'bg-black/10 dark:bg-white/10 text-black/60 dark:text-white/60'
+                  }`}
+              >
                 2
               </span>
             </button>
 
+            {/* Tab 2: Research & Publications */}
             <button
-              onClick={() => setActiveTab('publications')}
-              className={`relative px-4 sm:px-5 py-2.5 rounded-xl font-medium text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 transition-all duration-300 cursor-pointer ${
-                activeTab === 'publications'
+              type="button"
+              id="tab-research-papers"
+              onClick={() => setActiveTab('research')}
+              className={`relative py-3 px-3 sm:px-5 rounded-xl font-medium text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all duration-300 cursor-pointer overflow-hidden ${activeTab === 'research'
                   ? 'text-white'
                   : 'text-black/70 dark:text-[#D7E2EA]/70 hover:text-black dark:hover:text-white'
-              }`}
+                }`}
             >
-              {activeTab === 'publications' && (
+              {activeTab === 'research' && (
                 <motion.div
                   layoutId="activeExperienceTab"
-                  className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#B600A8] to-[#7621B0] shadow-md -z-10"
-                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#B600A8] to-[#7621B0] shadow-[0_4px_20px_rgba(182,0,168,0.35)] pointer-events-none"
+                  transition={{ type: 'spring', stiffness: 450, damping: 32 }}
                 />
               )}
-              <BookOpen className="w-4 h-4" />
-              <span>Research</span>
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${activeTab === 'publications' ? 'bg-white/20 text-white' : 'bg-black/10 dark:bg-white/10 text-black/60 dark:text-white/60'}`}>
+              <BookOpen className="w-4 h-4 flex-shrink-0 relative z-10" />
+              <span className="font-semibold relative z-10">Research Papers</span>
+              <span
+                className={`text-[10px] font-mono px-2 py-0.5 rounded-full relative z-10 ${activeTab === 'research'
+                    ? 'bg-white/25 text-white'
+                    : 'bg-black/10 dark:bg-white/10 text-black/60 dark:text-white/60'
+                }`}
+              >
                 3
               </span>
             </button>
-
-            <button
-              onClick={() => setActiveTab('education')}
-              className={`relative px-4 sm:px-5 py-2.5 rounded-xl font-medium text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 transition-all duration-300 cursor-pointer ${
-                activeTab === 'education'
-                  ? 'text-white'
-                  : 'text-black/70 dark:text-[#D7E2EA]/70 hover:text-black dark:hover:text-white'
-              }`}
-            >
-              {activeTab === 'education' && (
-                <motion.div
-                  layoutId="activeExperienceTab"
-                  className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#B600A8] to-[#7621B0] shadow-md -z-10"
-                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                />
-              )}
-              <GraduationCap className="w-4 h-4" />
-              <span>Education</span>
-            </button>
           </div>
 
-          {/* Download CV button */}
-          <a
-            href={cvPdfUrl}
-            download="Karan_Bhoriya_CV.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2.5 px-5 py-2.5 rounded-xl border border-black/20 dark:border-white/15 bg-black/[0.02] dark:bg-white/[0.03] hover:border-[#B600A8]/60 text-xs sm:text-sm font-semibold uppercase tracking-wider text-black dark:text-[#D7E2EA] hover:text-[#B600A8] dark:hover:text-white transition-all duration-300 shadow-sm hover:shadow-md active:scale-95 group"
-          >
-            <Download className="w-4 h-4 text-[#B600A8] group-hover:-translate-y-0.5 transition-transform duration-300" />
-            <span>Download CV (PDF)</span>
-          </a>
+          {/* Quick Stats bar & CV Download button */}
+          <div className="flex items-center justify-between w-full max-w-xl px-2 text-xs font-mono text-black/50 dark:text-[#D7E2EA]/50">
+            <span className="flex items-center gap-1.5">
+              {activeTab === 'work' ? (
+                <>
+                  <Layers className="w-3.5 h-3.5 text-[#B600A8]" />
+                  <span>Enterprise AI &amp; Agentic AI</span>
+                </>
+              ) : (
+                <>
+                  <Cpu className="w-3.5 h-3.5 text-[#B600A8]" />
+                  <span>Explainable AI, Digital Twins &amp; Edge ML</span>
+                </>
+              )}
+            </span>
+
+            <a
+              href={cvPdfUrl}
+              download="Karan_Bhoriya_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 font-semibold text-black/80 dark:text-[#D7E2EA] hover:text-[#B600A8] dark:hover:text-white transition-colors duration-200"
+            >
+              <Download className="w-3.5 h-3.5 text-[#B600A8]" />
+              <span>Download CV (PDF)</span>
+            </a>
+          </div>
         </FadeIn>
 
         {/* Tab Content Display */}
-        <div className="w-full mt-8 sm:mt-12 min-h-[420px]">
+        <div className="w-full mt-8 sm:mt-10 min-h-[420px]">
           <AnimatePresence mode="wait">
             {/* ── TAB 1: Work Experience ── */}
             {activeTab === 'work' && (
               <motion.div
                 key="work-tab"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
                 className="space-y-6 sm:space-y-8"
               >
                 {/* 1. Sopra Steria */}
@@ -294,7 +307,7 @@ export const ExperienceSection: React.FC = () => {
                             Humana People to People India
                           </h3>
                           <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest bg-[#7621B0]/15 text-[#7621B0] dark:text-[#D7E2EA] border border-[#7621B0]/30">
-                            LLM Pipelines &amp; Analytics
+                            Data Pipelines &amp; Analytics
                           </span>
                         </div>
                         <p className="text-sm sm:text-base font-medium text-black/80 dark:text-[#D7E2EA] mt-1">
@@ -358,13 +371,13 @@ export const ExperienceSection: React.FC = () => {
             )}
 
             {/* ── TAB 2: Research & Publications ── */}
-            {activeTab === 'publications' && (
+            {activeTab === 'research' && (
               <motion.div
-                key="publications-tab"
-                initial={{ opacity: 0, y: 20 }}
+                key="research-tab"
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
                 className="space-y-6"
               >
                 {/* Paper 1 */}
@@ -442,86 +455,6 @@ export const ExperienceSection: React.FC = () => {
                         {tag}
                       </span>
                     ))}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {/* ── TAB 3: Education & Leadership ── */}
-            {activeTab === 'education' && (
-              <motion.div
-                key="education-tab"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-6"
-              >
-                {/* Degree Card */}
-                <div className="rounded-3xl p-6 sm:p-8 border border-black/10 dark:border-white/10 bg-white/80 dark:bg-[#141414]/90 backdrop-blur-md shadow-sm hover:shadow-[0_12px_40px_rgba(182,0,168,0.12)] transition-all duration-500 flex flex-col justify-between">
-                  <div>
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#7621B0] to-[#B600A8] flex items-center justify-center text-white mb-6 shadow-md">
-                      <GraduationCap className="w-6 h-6" />
-                    </div>
-                    <span className="text-xs font-mono text-black/60 dark:text-[#D7E2EA]/60 uppercase tracking-widest">
-                      2023 – Present
-                    </span>
-                    <h3 className="text-2xl font-bold uppercase tracking-wide text-black dark:text-white mt-1">
-                      Sushant University
-                    </h3>
-                    <p className="text-sm font-mono text-black/60 dark:text-[#D7E2EA]/60">
-                      Gurugram, Haryana
-                    </p>
-                    <div className="mt-4 p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/10">
-                      <p className="font-semibold text-black dark:text-white text-base">
-                        Bachelor of Technology (B.Tech)
-                      </p>
-                      <p className="text-sm text-[#B600A8] font-medium mt-0.5">
-                        Computer Science Engineering (AI &amp; ML)
-                      </p>
-                    </div>
-                    <p className="mt-4 text-sm text-black/70 dark:text-[#D7E2EA]/80 font-light leading-relaxed">
-                      Specialized in deep learning, autonomous multi-agent architectures, neural networks, natural language processing, graph structures, and computational optimization.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Leadership & Activities */}
-                <div className="rounded-3xl p-6 sm:p-8 border border-black/10 dark:border-white/10 bg-white/80 dark:bg-[#141414]/90 backdrop-blur-md shadow-sm hover:shadow-[0_12px_40px_rgba(182,0,168,0.12)] transition-all duration-500 flex flex-col justify-between">
-                  <div>
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#B600A8] to-[#7621B0] flex items-center justify-center text-white mb-6 shadow-md">
-                      <Award className="w-6 h-6" />
-                    </div>
-                    <span className="text-xs font-mono text-black/60 dark:text-[#D7E2EA]/60 uppercase tracking-widest">
-                      Extracurricular Leadership
-                    </span>
-                    <h3 className="text-2xl font-bold uppercase tracking-wide text-black dark:text-white mt-1">
-                      Rotaract Club
-                    </h3>
-                    <p className="text-sm font-mono text-black/60 dark:text-[#D7E2EA]/60">
-                      Sushant University
-                    </p>
-                    <div className="mt-4 space-y-3">
-                      <div className="p-3.5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/10">
-                        <div className="flex items-center justify-between text-xs font-mono text-black/60 dark:text-[#D7E2EA]/60 mb-1">
-                          <span className="font-semibold text-black dark:text-white">Community Service Director</span>
-                          <span>Aug 2024 – Jul 2025</span>
-                        </div>
-                        <p className="text-xs text-black/70 dark:text-[#D7E2EA]/80 font-light">
-                          Spearheaded cross-campus social initiatives, volunteer mobilization, and public outreach drives.
-                        </p>
-                      </div>
-
-                      <div className="p-3.5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/10">
-                        <div className="flex items-center justify-between text-xs font-mono text-black/60 dark:text-[#D7E2EA]/60 mb-1">
-                          <span className="font-semibold text-black dark:text-white">Active Member</span>
-                          <span>Aug 2023 – Jul 2024</span>
-                        </div>
-                        <p className="text-xs text-black/70 dark:text-[#D7E2EA]/80 font-light">
-                          Contributed to youth leadership workshops and educational resource distribution campaigns.
-                        </p>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </motion.div>
