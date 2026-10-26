@@ -8,7 +8,6 @@ import {
   Calendar,
   MapPin,
   Download,
-  Sparkles,
   Award,
   Building2,
   FileText,
@@ -97,10 +96,6 @@ export const ExperienceSection: React.FC = () => {
       <div className="w-full max-w-5xl flex flex-col items-center z-20">
         {/* Section Heading */}
         <FadeIn delay={0} y={30} className="w-full text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-mono tracking-widest uppercase text-black/70 dark:text-[#D7E2EA]/70 mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-[#B600A8]" />
-            Background &amp; Track Record
-          </div>
           <h2
             className="hero-heading font-black uppercase leading-none tracking-tight text-center"
             style={{ fontSize: 'clamp(2.8rem, 10vw, 130px)' }}
@@ -171,7 +166,7 @@ export const ExperienceSection: React.FC = () => {
                     : 'bg-black/10 dark:bg-white/10 text-black/60 dark:text-white/60'
                 }`}
               >
-                3
+                4
               </span>
             </button>
           </div>
@@ -380,7 +375,33 @@ export const ExperienceSection: React.FC = () => {
                 transition={{ duration: 0.3, ease: 'easeOut' }}
                 className="space-y-6"
               >
-                {/* Paper 1 */}
+                {/* Paper 1: RAG Abstention & Reliability */}
+                <div className="group rounded-3xl p-6 sm:p-8 border border-black/10 dark:border-white/10 bg-white/80 dark:bg-[#141414]/90 backdrop-blur-md shadow-sm hover:shadow-[0_12px_40px_rgba(182,0,168,0.12)] transition-all duration-500">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold uppercase tracking-widest bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 w-fit">
+                      <FileText className="w-3.5 h-3.5" />
+                      Under Review
+                    </span>
+                    <span className="text-xs font-mono text-black/50 dark:text-[#D7E2EA]/50">
+                      Financial Support RAG Benchmark
+                    </span>
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-black dark:text-white leading-snug">
+                    When Should an AI Agent Say “I Don’t Know”? Evaluating Abstention and Reliability in a Financial Support RAG Agent
+                  </h3>
+                  <p className="mt-3 text-sm sm:text-base text-black/75 dark:text-[#D7E2EA]/85 font-light leading-relaxed">
+                    Built a behaviour-first benchmark of <span className="font-semibold text-[#B600A8]">150 banking queries</span> across 5 query types, evaluating each reply across 5 expected operational acts (answer, clarify, abstain, escalate, refuse) in a fixed RAG pipeline. Benchmarked 4 LLM configurations (DeepSeek and GLM across high &amp; low reasoning effort) over <span className="font-semibold text-[#B600A8]">600 replies</span> with 3-checker majority voting (<span className="font-semibold text-[#B600A8]">Fleiss&apos; kappa 0.62</span>; 19.5% miss rate). Open-sourced queries, codebook, and scripts on GitHub.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-5 pt-4 border-t border-black/5 dark:border-white/5">
+                    {['Agent Abstention & Reliability', 'RAG Pipeline Benchmark', 'DeepSeek & GLM', "Fleiss' Kappa (0.62)", '150 Banking Queries', 'Open Source'].map((tag) => (
+                      <span key={tag} className="text-[11px] font-mono px-3 py-1 rounded-lg bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-black/80 dark:text-[#D7E2EA]/90">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Paper 2: Battery Digital Twins */}
                 <div className="group rounded-3xl p-6 sm:p-8 border border-black/10 dark:border-white/10 bg-white/80 dark:bg-[#141414]/90 backdrop-blur-md shadow-sm hover:shadow-[0_12px_40px_rgba(182,0,168,0.12)] transition-all duration-500">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                     <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold uppercase tracking-widest bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 w-fit">
