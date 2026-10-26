@@ -33,7 +33,7 @@ export const HeroSection: React.FC = () => {
         as="nav"
         className="absolute top-0 left-0 right-0 flex justify-between items-center px-6 md:px-10 pt-6 md:pt-8 z-30"
       >
-        {(['about', 'services', 'projects', 'contact'] as const).map((id) => (
+        {(['experience', 'services', 'projects', 'contact'] as const).map((id) => (
           <a
             key={id}
             href={`#${id}`}
@@ -41,7 +41,7 @@ export const HeroSection: React.FC = () => {
             className="relative text-black/70 dark:text-[#D7E2EA]/85 hover:text-black dark:hover:text-white font-medium uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-100 group py-1 transition-colors duration-300"
             style={{ cursor: 'pointer' }}
           >
-            {id === 'services' ? 'Tech Stack' : id.charAt(0).toUpperCase() + id.slice(1)}
+            {id === 'experience' ? 'Experience' : id === 'services' ? 'Tech Stack' : id.charAt(0).toUpperCase() + id.slice(1)}
             <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#B600A8] to-[#7621B0] scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100" />
           </a>
         ))}

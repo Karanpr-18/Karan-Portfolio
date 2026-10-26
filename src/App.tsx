@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { HeroSection } from './sections/HeroSection';
 import { MarqueeSection } from './sections/MarqueeSection';
-import { AboutSection } from './sections/AboutSection';
+import { ExperienceSection } from './sections/ExperienceSection';
 import { ServicesSection } from './sections/ServicesSection';
 import { ProjectsSection } from './sections/ProjectsSection';
 import { Mail, Github, Linkedin, Sun, Moon } from 'lucide-react';
@@ -48,8 +48,8 @@ function App() {
       {/* 2. Marquee Section */}
       <MarqueeSection />
 
-      {/* 3. About Section */}
-      <AboutSection />
+      {/* 3. Experience Section */}
+      <ExperienceSection />
 
       {/* 4. Services Section */}
       <ServicesSection />
