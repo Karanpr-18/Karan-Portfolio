@@ -118,8 +118,8 @@ export const ExperienceSection: React.FC = () => {
               id="tab-work-experience"
               onClick={() => setActiveTab('work')}
               className={`relative py-3 px-3 sm:px-5 rounded-xl font-medium text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all duration-300 cursor-pointer overflow-hidden ${activeTab === 'work'
-                  ? 'text-white'
-                  : 'text-black/70 dark:text-[#D7E2EA]/70 hover:text-black dark:hover:text-white'
+                ? 'text-white'
+                : 'text-black/70 dark:text-[#D7E2EA]/70 hover:text-black dark:hover:text-white'
                 }`}
             >
               {activeTab === 'work' && (
@@ -133,8 +133,8 @@ export const ExperienceSection: React.FC = () => {
               <span className="font-semibold relative z-10">Work Experience</span>
               <span
                 className={`text-[10px] font-mono px-2 py-0.5 rounded-full relative z-10 ${activeTab === 'work'
-                    ? 'bg-white/25 text-white'
-                    : 'bg-black/10 dark:bg-white/10 text-black/60 dark:text-white/60'
+                  ? 'bg-white/25 text-white'
+                  : 'bg-black/10 dark:bg-white/10 text-black/60 dark:text-white/60'
                   }`}
               >
                 2
@@ -147,8 +147,8 @@ export const ExperienceSection: React.FC = () => {
               id="tab-research-papers"
               onClick={() => setActiveTab('research')}
               className={`relative py-3 px-3 sm:px-5 rounded-xl font-medium text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all duration-300 cursor-pointer overflow-hidden ${activeTab === 'research'
-                  ? 'text-white'
-                  : 'text-black/70 dark:text-[#D7E2EA]/70 hover:text-black dark:hover:text-white'
+                ? 'text-white'
+                : 'text-black/70 dark:text-[#D7E2EA]/70 hover:text-black dark:hover:text-white'
                 }`}
             >
               {activeTab === 'research' && (
@@ -162,9 +162,9 @@ export const ExperienceSection: React.FC = () => {
               <span className="font-semibold relative z-10">Research Papers</span>
               <span
                 className={`text-[10px] font-mono px-2 py-0.5 rounded-full relative z-10 ${activeTab === 'research'
-                    ? 'bg-white/25 text-white'
-                    : 'bg-black/10 dark:bg-white/10 text-black/60 dark:text-white/60'
-                }`}
+                  ? 'bg-white/25 text-white'
+                  : 'bg-black/10 dark:bg-white/10 text-black/60 dark:text-white/60'
+                  }`}
               >
                 4
               </span>
@@ -182,7 +182,7 @@ export const ExperienceSection: React.FC = () => {
               ) : (
                 <>
                   <Cpu className="w-3.5 h-3.5 text-[#B600A8]" />
-                  <span>Explainable AI, Digital Twins &amp; Edge ML</span>
+                  <span>RAG, Explainable AI, Digital Twins &amp; Edge ML</span>
                 </>
               )}
             </span>
